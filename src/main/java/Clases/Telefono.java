@@ -7,6 +7,7 @@ public class Telefono {
     int idtelefono;
     String fijo;
     String celular;
+    int idacudiente;
     boolean activo;
 
     public Telefono(int idtelefono, String fijo, String celular, boolean activo) {
@@ -41,6 +42,14 @@ public class Telefono {
 
     public void setCelular(String celular) {
         this.celular = celular;
+    }
+
+    public int getIdacudiente() {
+        return idacudiente;
+    }
+
+    public void setIdacudiente(int idacudiente) {
+        this.idacudiente = idacudiente;
     }
 
     public boolean isActivo() {
