@@ -14,15 +14,17 @@ public class Colegio {
     int idEstudiante;
     String privado;
     String distrital;
+    Boolean activo;
     
     public Colegio() {
     }
 
-    public Colegio(int idColegio, int idEstudiante, String privado, String distrital) {
+    public Colegio(int idColegio, int idEstudiante, String privado, String distrital, Boolean activo) {
         this.idColegio = idColegio;
         this.idEstudiante = idEstudiante;
         this.privado = privado;
         this.distrital = distrital;
+        this.activo = activo;
     }
 
     public int getIdColegio() {
@@ -56,6 +58,14 @@ public class Colegio {
     public void setDistrital(String distrital) {
         this.distrital = distrital;
     }
-    
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
     
 }
