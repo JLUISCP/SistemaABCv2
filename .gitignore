@@ -92,3 +92,5 @@ modules.xml
 
 # DB configurations
 /src/main/java/BD/Database.java
+
+/target/
