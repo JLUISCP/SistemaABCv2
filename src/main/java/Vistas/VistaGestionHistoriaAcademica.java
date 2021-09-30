@@ -5,26 +5,30 @@
  */
 package Vistas;
 
-
 import BD.Database;
 import BD.HistoriaAcademicaDAO;
 import BD.EstudianteDAO;
 import Clases.HistoriaAcademica;
 import Clases.Estudiante;
 import Clases.HistoriaAcademica;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 /**
+ * Ventana para gestionar las operaciones de creación, modificación,
+ * eliminación y consulta en la base de datos Escuela en PostgreSQL
+ * para la tabla historia_academica. 
+ * En esta clase se definen todos los eventos disparados por los componentes
+ * de Java Swing en la ventana y se cargan de la base de datos la
+ * información que está almacenada
  *
  * @author asisr
  */
@@ -32,11 +36,16 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
 
     HistoriaAcademica historialSeleccionado = new HistoriaAcademica();
     ArrayList<HistoriaAcademica> listaHistoriaAcademica = new ArrayList<HistoriaAcademica>();
-    
-    public VistaGestionHistoriaAcademica() {
+
+    public VistaGestionHistoriaAcademica() throws SQLException {
         initComponents();
         cargarDatos();
-        cargarCmbEstudiantes();
+        try {
+            cargarCmbEstudiantes();
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+
     }
 
     /**
@@ -53,7 +62,6 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         chActivo = new javax.swing.JCheckBox();
-        tfEstudianteHistorial = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
@@ -64,6 +72,9 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
         tfAñoHistorial = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         tfGrado = new javax.swing.JTextField();
+        cmb_Estudiantes = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        lb_IdEstudiante = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,6 +153,12 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
 
         jLabel4.setText("Grado");
 
+        cmb_Estudiantes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel5.setText("Id del Estudiante:");
+
+        lb_IdEstudiante.setText("Sin Id Seleccionado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,34 +168,35 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLimpiar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLimpiar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lb_IdEstudiante)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(tfEstudianteHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel4))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tfColegioAnterior)
-                                        .addComponent(tfAñoHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tfGrado, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(chActivo)
-                                        .addGap(159, 159, 159))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(37, 37, 37)))))
-                        .addGap(18, 18, 18)
+                                .addComponent(chActivo)
+                                .addGap(159, 159, 159))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmb_Estudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfColegioAnterior)
+                                    .addComponent(tfAñoHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfGrado, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addComponent(btnRegistrar)
                         .addGap(18, 18, 18)
                         .addComponent(btnModificar)
@@ -205,7 +223,9 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(tfEstudianteHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmb_Estudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(lb_IdEstudiante))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -218,7 +238,7 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(tfGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(chActivo)
                         .addGap(29, 29, 29)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,10 +257,11 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
         historialSeleccionado.setGrado(String.valueOf(tbHistorialesAcademicos.getValueAt(seleccion, 4)));
         historialSeleccionado.setActivo(Boolean.parseBoolean(String.valueOf(tbHistorialesAcademicos.getValueAt(seleccion, 5))));
         llenarCampos();
+        lb_IdEstudiante.setText(String.valueOf(tbHistorialesAcademicos.getValueAt(seleccion, 0)));
     }//GEN-LAST:event_tbHistorialesAcademicosMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        /*Boolean resultado = HistoriaAcademicaDAO.eliminarHistoriaAcademica(historialSeleccionado.getIdhistorial_academico());
+        Boolean resultado = HistoriaAcademicaDAO.eliminarHistoriaAcademica(historialSeleccionado.getIdhistorial_academico());
         if(resultado){
             JOptionPane.showMessageDialog(null, "Eliminacion exitosa");
         }else{
@@ -248,7 +269,6 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
         }
         limpiarCampos();
         cargarDatos();
-*/
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -256,28 +276,32 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        if(validarCamposVacios()){
+        if (validarCamposVacios()) {
+            String estudiante = cmb_Estudiantes.getSelectedItem().toString();
+                estudiante = estudiante.substring(0, estudiante.indexOf(" "));
+                System.out.println(estudiante);
+                int IDEstudiante = Integer.parseInt(estudiante);
             HistoriaAcademica historiaAcademica = new HistoriaAcademica();
-            //historiaAcademica.setIdestudiante(tfEstudianteHistorial.getText());
+            historiaAcademica.setIdestudiante(IDEstudiante);
             historiaAcademica.setColegio_Anterior(tfColegioAnterior.getText());
             historiaAcademica.setAño(tfAñoHistorial.getText());
             historiaAcademica.setGrado(tfGrado.getText());
             historiaAcademica.setActivo(chActivo.isSelected());
             Boolean resultado = HistoriaAcademicaDAO.registrarHistoriaAcademica(historiaAcademica);
-            if(resultado){
+            if (resultado) {
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Fallo el registro del historial academico");
             }
             limpiarCampos();
             cargarDatos();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Favor de proporcionar toda la informacion");
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        if(validarCamposVacios()){
+        if (validarCamposVacios()) {
             HistoriaAcademica historialacademico = new HistoriaAcademica();
             historialacademico.setIdhistorial_academico(historialSeleccionado.getIdhistorial_academico());
             historialacademico.setIdestudiante(historialacademico.getIdestudiante());
@@ -286,14 +310,14 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
             historialacademico.setGrado(tfGrado.getText());
             historialacademico.setActivo(chActivo.isSelected());
             Boolean resultado = HistoriaAcademicaDAO.modificarHistoriaAcademica(historialacademico);
-            if(resultado){
+            if (resultado) {
                 JOptionPane.showMessageDialog(null, "Modificacion exitosa");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Fallo la moficacion del historial academico");
             }
             limpiarCampos();
             cargarDatos();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Favor de proporcionar toda la informacion");
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -304,37 +328,52 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JCheckBox chActivo;
+    private javax.swing.JComboBox<String> cmb_Estudiantes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_IdEstudiante;
     private javax.swing.JTable tbHistorialesAcademicos;
     private javax.swing.JTextField tfAñoHistorial;
     private javax.swing.JTextField tfColegioAnterior;
-    private javax.swing.JTextField tfEstudianteHistorial;
     private javax.swing.JTextField tfGrado;
     // End of variables declaration//GEN-END:variables
 
     private void cargarDatos() {
         DefaultTableModel model = new DefaultTableModel();
         ResultSet rs = HistoriaAcademicaDAO.consultarHistoriaAcademica();
-        model.setColumnIdentifiers(new Object[]{"idHistoriaAcademica","idEstudiante", "Colegio Anterior", "Año", "Grado", "Estado actividad"});
-        try{
-            while(rs.next()){
-                model.addRow(new Object[]{rs.getInt("idcolegio"), rs.getInt("idestudiante"), rs.getString("cole_ant"), rs.getString("año"), rs.getString("grado"), rs.getBoolean("activo")});
+        model.setColumnIdentifiers(new Object[]{"idHistoriaAcademica", "idEstudiante", "Colegio Anterior", "Año", "Grado", "Estado actividad"});
+        try {
+            while (rs.next()) {
+                model.addRow(new Object[]{rs.getInt("idhistorial_academico"), rs.getInt("idestudiante"), rs.getString("cole_ant"), rs.getString("año"), rs.getString("grado"), rs.getBoolean("activo")});
             }
             tbHistorialesAcademicos.setModel(model);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.toString());
         }
         btnEliminar.setEnabled(false);
         btnModificar.setEnabled(false);
     }
-    
-    private void cargarCmbEstudiantes() {
-        
+
+    private void cargarCmbEstudiantes() throws SQLException {
+        cmb_Estudiantes.removeAllItems();
+        ResultSet rs = EstudianteDAO.consultarEstudiantes();
+        //Rest of your code here
+        try {
+            while ((rs.next())) {
+                cmb_Estudiantes.addItem(rs.getString("idestudiante") + " " + rs.getString("primernombre") + " " + rs.getString("segundonombre") +" " +
+                        rs.getString("primerapellido") + " " +  rs.getString("segundoapellido"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println("Conexión cerrada");
+        }
     }
 
     private void llenarCampos() {
@@ -361,15 +400,16 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
 
     private Boolean validarCamposVacios() {
         Boolean camposLLenos = true;
-        if(tfColegioAnterior.getText() == ""){
+        if (tfColegioAnterior.getText() == "") {
             camposLLenos = false;
         }
-        if(tfAñoHistorial.getText() == ""){
+        if (tfAñoHistorial.getText() == "") {
             camposLLenos = false;
         }
-        if(tfGrado.getText() == ""){
+        if (tfGrado.getText() == "") {
             camposLLenos = false;
         }
         return camposLLenos;
     }
+
 }

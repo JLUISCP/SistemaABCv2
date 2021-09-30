@@ -14,6 +14,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
+ * Data Access Object para la tabla Colagio de la base de datos
+ * Escuela en PostgreSQL.
+ * En esta clase se controlan todas las conexiones que se realizan a la BD
+ * para realizar las operaciones de crear, actualizar, consultar y eliminar
+ * de la tabla Colegio
  *
  * @author asisr
  */

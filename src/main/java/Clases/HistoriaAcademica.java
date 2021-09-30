@@ -5,8 +5,10 @@
  */
 package Clases;
 
-/**
- *
+/* Clase para almacenar todos los atributos
+ * de la tabla historia_academica en la base de datos
+ * de PostgreSQL para su posterior manipulación
+ * y consulta dentro del sistema
  * @author asisr
  */
 public class HistoriaAcademica {

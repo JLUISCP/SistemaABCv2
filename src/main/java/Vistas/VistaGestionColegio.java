@@ -19,12 +19,13 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Utils.GroupButtonUtils;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 /**
+ * Ventana para gestionar las operaciones de creación, modificación,
+ * eliminación y consulta en la base de datos Escuela en PostgreSQL
+ * para la tabla colegio. 
+ * En esta clase se definen todos los eventos disparados por los componentes
+ * de Java Swing en la ventana y se cargan de la base de datos la
+ * información que está almacenada
  *
  * @author asisr
  */
