@@ -27,6 +27,8 @@ public class VistaInfSalud extends javax.swing.JFrame {
     public VistaInfSalud() {
         initComponents();
         cargarDatos();
+        btnModificar.setEnabled(false);
+        btnAgregar.setEnabled(false);
     }
 
     /**
@@ -277,7 +279,6 @@ public class VistaInfSalud extends javax.swing.JFrame {
         try{
             while(rs.next()){
                 model.addRow(new Object[]{rs.getInt("idestudiante"), rs.getString("primernombre"), rs.getString("segundonombre"), rs.getString("primerapellido"), rs.getString("segundoapellido")});
-                System.out.println("hlou");
             }
             tbEstudiantes.setModel(model);
         }catch(SQLException e){
