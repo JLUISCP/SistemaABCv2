@@ -7,6 +7,7 @@ package BD;
 
 import static BD.Database.getConexion;
 import Clases.Colegio;
+import Clases.HistoriaAcademica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,10 +18,11 @@ import java.sql.Statement;
  *
  * @author asisr
  */
-public class ColegioDAO {
-    public static ResultSet consultarColegios(){
+public class HistoriaAcademicaDAO {
+    
+    public static ResultSet consultarHistoriaAcademica(){
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idcolegio, privado, distrital, activo FROM \"colegio\"";
+        String consulta = "SELECT idhistorial_academica, idestudiante, cole_ant, año, grado, activo FROM \"historial_academico\"";
         Statement st;
         ResultSet datos = null;
         try{
@@ -32,33 +34,18 @@ public class ColegioDAO {
         return datos;
     }
     
-    public static Boolean eliminarColegio(int idColegio){
+    public static Boolean registrarHistoriaAcademica(HistoriaAcademica historiaAcademica){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "DELETE FROM \"colegio\" WHERE idcolegio = " + idColegio;
-        Statement st;
-        try{
-            st = conn.createStatement();
-            int respuesta = st.executeUpdate(consulta);
-            if(respuesta > 0){
-                resultado = true;
-            }
-        }catch(SQLException e){
-            System.out.println(e.toString());
-        }
-        return resultado;
-    }
-    
-    public static Boolean registrarColegio(Colegio colegio){
-        Boolean resultado = false;
-        Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO \"colegio\" (privado, distrital, activo) VALUES (?, ?, ?)";
+        String consulta = "INSERT INTO \"historial_academico\" (idestudiante, cole_ant, año, grado, activo) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
-            ps.setString(1, colegio.getTipoColegio());
-            ps.setString(2, colegio.getCiudad());
-            ps.setBoolean(3, colegio.getActivo());
+            ps.setInt(1, historiaAcademica.getIdestudiante());
+            ps.setString(2, historiaAcademica.getColegio_Anterior());
+            ps.setString(3, historiaAcademica.getAño());
+            ps.setString(4, historiaAcademica.getGrado());
+            ps.setBoolean(5, historiaAcademica.getActivo());
             
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
@@ -70,17 +57,19 @@ public class ColegioDAO {
         return resultado;
     }
     
-    public static Boolean modificarColegio(Colegio colegio){
+    public static Boolean modificarHistoriaAcademica(HistoriaAcademica historiaAcademica){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE \"colegio\" SET privado = ?, distrital = ?, activo = ? WHERE idcolegio = ?";
+        String consulta = "UPDATE \"historial_academico\" SET idestudiante = ?, cole_ant = ?, año = ?, grado = ?, activo = ? WHERE idhistorial_academico = ?";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
-            ps.setString(1, colegio.getTipoColegio());
-            ps.setString(2, colegio.getCiudad());
-            ps.setBoolean(3, colegio.getActivo());
-            ps.setInt(4, colegio.getIdColegio());
+            ps.setInt(1, historiaAcademica.getIdestudiante());
+            ps.setString(2, historiaAcademica.getColegio_Anterior());
+            ps.setString(3, historiaAcademica.getAño());
+            ps.setString(4, historiaAcademica.getGrado());
+            ps.setBoolean(5, historiaAcademica.getActivo());
+            ps.setInt(6, historiaAcademica.getIdhistorial_academico());
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
                 resultado = true;
@@ -90,4 +79,5 @@ public class ColegioDAO {
         }
         return resultado;
     }
+
 }

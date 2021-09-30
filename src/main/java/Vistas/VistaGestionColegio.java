@@ -6,17 +6,18 @@
 package Vistas;
 
 
-import BD.Database;
 import BD.ColegioDAO;
-import BD.EstudianteDAO;
 import Clases.Colegio;
 import Clases.Estudiante;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Utils.GroupButtonUtils;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -31,11 +32,12 @@ public class VistaGestionColegio extends javax.swing.JFrame {
 
     Colegio colegioSeleccionado = new Colegio();
     ArrayList<Colegio> listaColegio = new ArrayList<Colegio>();
-    ArrayList<Estudiante> listaEstudiantes = new ArrayList<Estudiante>();
+    GroupButtonUtils utilButton = new GroupButtonUtils();
     
     public VistaGestionColegio() {
         initComponents();
         cargarDatos();
+        cargarCmbEstudiantes();
     }
 
     /**
@@ -47,39 +49,39 @@ public class VistaGestionColegio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroupHistoriales = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbColegios = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         chActivo = new javax.swing.JCheckBox();
-        tfPrivado = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
-        tfDistrital = new javax.swing.JTextField();
+        tfCiudad = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
-        cmb_Estudiantes = new javax.swing.JComboBox<>();
+        btnTipoPublica = new javax.swing.JRadioButton();
+        btnTipoPrivada = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tbColegios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "idColegio", "idEstudiante", "Privado", "Distrital", "Estado actividad"
+                "idColegio", "Tipo", "Ciudad", "Estado actividad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -99,11 +101,9 @@ public class VistaGestionColegio extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Gestión Colegios");
+        jLabel1.setText("Gestión de Colegios");
 
-        jLabel2.setText("Estudiante");
-
-        jLabel3.setText("Privado");
+        jLabel3.setText("Tipo de Colegio");
 
         chActivo.setText("esta activo?");
 
@@ -128,7 +128,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Distrital");
+        jLabel6.setText("Ciudad");
 
         btnLimpiar.setText("Limpíar campos");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,12 +137,11 @@ public class VistaGestionColegio extends javax.swing.JFrame {
             }
         });
 
-        cmb_Estudiantes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmb_Estudiantes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmb_EstudiantesActionPerformed(evt);
-            }
-        });
+        btnGroupHistoriales.add(btnTipoPublica);
+        btnTipoPublica.setText("Pública");
+
+        btnGroupHistoriales.add(btnTipoPrivada);
+        btnTipoPrivada.setText("Privada");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,23 +152,22 @@ public class VistaGestionColegio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 227, Short.MAX_VALUE)
+                        .addGap(0, 237, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(115, 115, 115))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfPrivado, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
-                                    .addComponent(cmb_Estudiantes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(tfDistrital, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnTipoPrivada)
+                                    .addComponent(btnTipoPublica))
+                                .addGap(299, 299, 299)))
                         .addGap(277, 277, 277))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnLimpiar)
@@ -190,19 +188,17 @@ public class VistaGestionColegio extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(btnTipoPublica)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(cmb_Estudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnTipoPrivada)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfPrivado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(tfDistrital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                    .addComponent(tfCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
                 .addComponent(chActivo)
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,10 +218,9 @@ public class VistaGestionColegio extends javax.swing.JFrame {
     private void tbColegiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbColegiosMouseClicked
         int seleccion = tbColegios.rowAtPoint(evt.getPoint());
         colegioSeleccionado.setIdColegio(Integer.parseInt(String.valueOf(tbColegios.getValueAt(seleccion, 0))));
-        colegioSeleccionado.setIdEstudiante(Integer.parseInt(String.valueOf(tbColegios.getValueAt(seleccion, 1))));
-        colegioSeleccionado.setPrivado(String.valueOf(tbColegios.getValueAt(seleccion, 2)));
-        colegioSeleccionado.setDistrital(String.valueOf(tbColegios.getValueAt(seleccion, 3)));
-        colegioSeleccionado.setActivo(Boolean.parseBoolean(String.valueOf(tbColegios.getValueAt(seleccion, 4))));
+        colegioSeleccionado.setTipoColegio(String.valueOf(tbColegios.getValueAt(seleccion, 1)));
+        colegioSeleccionado.setCiudad(String.valueOf(tbColegios.getValueAt(seleccion, 2)));
+        colegioSeleccionado.setActivo(Boolean.parseBoolean(String.valueOf(tbColegios.getValueAt(seleccion, 3))));
         llenarCampos();
     }//GEN-LAST:event_tbColegiosMouseClicked
 
@@ -246,10 +241,10 @@ public class VistaGestionColegio extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if(validarCamposVacios()){
+            
             Colegio colegio = new Colegio();
-            colegio.setIdEstudiante(cmb_Estudiantes.getSelectedIndex());
-            colegio.setPrivado(tfPrivado.getText());
-            colegio.setDistrital(tfDistrital.getText());
+            colegio.setTipoColegio(utilButton.getSelectedButtonText(btnGroupHistoriales));
+            colegio.setCiudad(tfCiudad.getText());
             colegio.setActivo(chActivo.isSelected());
             Boolean resultado = ColegioDAO.registrarColegio(colegio);
             if(resultado){
@@ -268,9 +263,8 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         if(validarCamposVacios()){
             Colegio colegio = new Colegio();
             colegio.setIdColegio(colegioSeleccionado.getIdColegio());
-            colegio.setIdEstudiante(colegioSeleccionado.getIdEstudiante());
-            colegio.setPrivado(tfPrivado.getText());
-            colegio.setDistrital(tfDistrital.getText());
+            colegio.setTipoColegio(utilButton.getSelectedButtonText(btnGroupHistoriales));
+            colegio.setCiudad(tfCiudad.getText());
             colegio.setActivo(chActivo.isSelected());
             Boolean resultado = ColegioDAO.modificarColegio(colegio);
             if(resultado){
@@ -285,34 +279,30 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void cmb_EstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_EstudiantesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmb_EstudiantesActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
+    private javax.swing.ButtonGroup btnGroupHistoriales;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JRadioButton btnTipoPrivada;
+    private javax.swing.JRadioButton btnTipoPublica;
     private javax.swing.JCheckBox chActivo;
-    private javax.swing.JComboBox<String> cmb_Estudiantes;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbColegios;
-    private javax.swing.JTextField tfDistrital;
-    private javax.swing.JTextField tfPrivado;
+    private javax.swing.JTextField tfCiudad;
     // End of variables declaration//GEN-END:variables
 
     private void cargarDatos() {
         DefaultTableModel model = new DefaultTableModel();
         ResultSet rs = ColegioDAO.consultarColegios();
-        model.setColumnIdentifiers(new Object[]{"idColegio","idEstudiante", "Privado", "Distrital", "Estado actividad"});
+        model.setColumnIdentifiers(new Object[]{"idColegio", "TipoColegio", "Ciudad", "Estado actividad"});
         try{
             while(rs.next()){
-                model.addRow(new Object[]{rs.getInt("idcolegio"), rs.getInt("idestudiante"), rs.getString("privado"), rs.getString("distrital"), rs.getBoolean("activo")});
+                model.addRow(new Object[]{rs.getInt("idcolegio"), rs.getString("privado"), rs.getString("distrital"), rs.getBoolean("activo")});
             }
             tbColegios.setModel(model);
         }catch(SQLException e){
@@ -323,14 +313,18 @@ public class VistaGestionColegio extends javax.swing.JFrame {
     }
     
     private void cargarCmbEstudiantes() {
-        listaEstudiantes = (ArrayList<Estudiante>) EstudianteDAO.consultarEstudiantes();
-        cmb_Estudiantes.setModel(new DefaultComboBoxModel<String>(listaEstudiantes.toArray(new String[0])));
+        
     }
 
     private void llenarCampos() {
-        cmb_Estudiantes.setSelectedIndex(colegioSeleccionado.getIdEstudiante());
-        tfPrivado.setText(colegioSeleccionado.getPrivado());
-        tfDistrital.setText(colegioSeleccionado.getDistrital());
+        /*if(colegioSeleccionado.getTipoColegio().t == "Privada"){
+            btnGroupHistoriales.setSelected(btnTipoPrivada.getModel(), true);
+        }
+        if(colegioSeleccionado.getTipoColegio() == "Pública"){
+            btnGroupHistoriales.setSelected(btnTipoPublica.getModel(), true);
+        }
+*/
+        tfCiudad.setText(colegioSeleccionado.getCiudad());
         chActivo.setSelected(colegioSeleccionado.getActivo());
         btnEliminar.setEnabled(true);
         btnModificar.setEnabled(true);
@@ -339,9 +333,8 @@ public class VistaGestionColegio extends javax.swing.JFrame {
     }
 
     private void limpiarCampos() {
-        cmb_Estudiantes.setSelectedItem(null);
-        tfPrivado.setText("");
-        tfDistrital.setText("");
+        btnGroupHistoriales.clearSelection();
+        tfCiudad.setText("");
         chActivo.setSelected(false);
         btnLimpiar.setEnabled(false);
         btnRegistrar.setEnabled(true);
@@ -351,15 +344,13 @@ public class VistaGestionColegio extends javax.swing.JFrame {
 
     private Boolean validarCamposVacios() {
         Boolean camposLLenos = true;
-        if(cmb_Estudiantes.getSelectedItem() == null){
+        if(btnGroupHistoriales.getSelection() == null){
             camposLLenos = false;
         }
-        if(tfPrivado.getText() == ""){
-            camposLLenos = false;
-        }
-        if(tfDistrital.getText() == ""){
+        if("".equals(tfCiudad.getText())){
             camposLLenos = false;
         }
         return camposLLenos;
     }
+    
 }
