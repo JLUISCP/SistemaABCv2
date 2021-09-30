@@ -2,23 +2,26 @@ package Clases;
 
 public class Acudiente {
     int idacudiente;
-    int ident_madre;
-    int ident_padre;
     String nom_madre;
     String nom_padre;
     String direc_elect;
+    String telefono1;
+    String telefono2;        
     int idestudiante;
     boolean activo;
+    
+    public Acudiente(){
+    }
 
-    public Acudiente(int idacudiente, int ident_madre, int ident_padre, String nom_madre, String nom_padre, String direc_elect, int idestudiante, boolean activo) {
+    public Acudiente(int idacudiente, String telefono1, String telefono2, String nom_madre, String nom_padre, String direc_elect, int idestudiante, boolean activo) {
         this.idacudiente = idacudiente;
-        this.ident_madre = ident_madre;
-        this.ident_padre = ident_padre;
         this.nom_madre = nom_madre;
         this.nom_padre = nom_padre;
         this.direc_elect = direc_elect;
         this.idestudiante = idestudiante;
         this.activo = activo;
+        this.telefono1 = telefono1;
+        this.telefono2 = telefono2;
     }
 
     public int getIdacudiente() {
@@ -27,22 +30,6 @@ public class Acudiente {
 
     public void setIdacudiente(int idacudiente) {
         this.idacudiente = idacudiente;
-    }
-
-    public int getIdent_madre() {
-        return ident_madre;
-    }
-
-    public void setIdent_madre(int ident_madre) {
-        this.ident_madre = ident_madre;
-    }
-
-    public int getIdent_padre() {
-        return ident_padre;
-    }
-
-    public void setIdent_padre(int ident_padre) {
-        this.ident_padre = ident_padre;
     }
 
     public String getNom_madre() {
@@ -84,4 +71,21 @@ public class Acudiente {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+    
+    public void setTelefono1(String telefono1){
+        this.telefono1 = telefono1;
+    }
+    
+    public String getTelefono1(){
+        return telefono1;
+    }
+    
+    public void setTelefono2(String telefono2){
+        this.telefono2 = telefono2;
+    }
+    
+    public String getTelefono2(){
+        return telefono2;
+    }
+    
 }
