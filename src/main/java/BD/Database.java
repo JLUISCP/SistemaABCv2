@@ -15,10 +15,12 @@ import java.sql.Statement;
  * @author ecarv
  */
 public class Database {
+
     private static String db = "apex";
     private static String username = "apex";
     private static String password = "Lobaloba";
     private static String host = "maisonbleue2020.ddns.net";
+
     private static String url = "jdbc:postgresql://"+host+"/"+db;
     
     public static Connection getConexion(){

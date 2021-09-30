@@ -4,9 +4,7 @@ import Clases.Telefono;
 
 import java.sql.*;
 
-/**
- * @autor djov
- */
+
 public class TelefonoDAO {
     /**
      * Consulta los telefonos que se encuentran en la base de datos
@@ -30,8 +28,7 @@ public class TelefonoDAO {
     /**
      * Elimina (eliminado logico) un telefono, especificado por su id, de la base de datos.
      * @param idTelefono id del telefono que se desea eliminar
-     * @return
-     * True:  Eliminacion realizada con exito </p>
+     * @return resultado de la eliminación de teléfono
      * False: Error al eliminar
      */
     public static Boolean eliminarTelefono(int idTelefono){
@@ -56,8 +53,7 @@ public class TelefonoDAO {
     /**
      * Registra un nuevo telefono en la base de datos.
      * @param telefono Clase telefono, que representa una fila de la tabla Telefono
-     * @return
-     * True:  Registro realizado con exito </p>
+     * @return resultado del registro en ventana
      * False: Error al registrar
      */
     public static Boolean registrarTelefono(Telefono telefono){
@@ -85,8 +81,7 @@ public class TelefonoDAO {
     /**
      * Modificación en la base de datos de un registro especificado
      * @param telefono Clase telefono, que representa una fila de la tabla Telefono
-     * @return
-     * True:  Modificación realizada con exito </p>
+     * @return resultado true si se pudo modificar el telefono
      * False: Error al modificar
      */
     public static Boolean modificarTelefono(Telefono telefono){

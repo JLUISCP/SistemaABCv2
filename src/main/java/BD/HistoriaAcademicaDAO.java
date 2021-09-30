@@ -30,7 +30,7 @@ public class HistoriaAcademicaDAO {
      */
     public static ResultSet consultarHistoriaAcademica() {
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idhistorial_academico, idestudiante, cole_ant, año, grado, activo FROM \"historial_academico\"";
+        String consulta = "SELECT idhistorial_academico, idestudiante, cole_ant, año, grado, activo FROM \"historial_academico\" WHERE activo = true";
         Statement st;
         ResultSet datos = null;
         try {
@@ -44,7 +44,7 @@ public class HistoriaAcademicaDAO {
     /**
      * Registra en la base de datos un nuevo historial académico.
      * @param historiaAcademica que se registrará
-     * @return 
+     * @return resultado de registro en forma ventana
      */
     public static Boolean registrarHistoriaAcademica(HistoriaAcademica historiaAcademica) {
         Boolean resultado = false;
@@ -98,9 +98,7 @@ public class HistoriaAcademicaDAO {
     }
     /**
      * Se acualiza el registro de un HistoriaAcademica a activo = false.
-     * @param Idhistorial_academico Id del historial academico que se actualizara.
      * @return True si se pudo actualizar.
-     * False si no fue posible actualizar el registro.
      */
     public static Boolean eliminarHistoriaAcademica(int idhistorial_academico) {
         Boolean resultado = false;

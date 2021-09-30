@@ -1,8 +1,6 @@
 package Clases;
 
-/**
- * @autor djov
- */
+
 public class Telefono {
     int idtelefono;
     String fijo;

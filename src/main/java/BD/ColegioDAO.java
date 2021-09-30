@@ -23,9 +23,14 @@ import java.sql.Statement;
  * @author asisr
  */
 public class ColegioDAO {
+    /**
+     * Se conecta a la base de datos y consulta 
+     * los registros de los colegios que esten activos.
+     * @return ResultSet que contiene los resultados de la busqueda. 
+     */
     public static ResultSet consultarColegios(){
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idcolegio, tipo, ciudad, activo FROM \"colegio\"";
+        String consulta = "SELECT idcolegio, tipo, ciudad, activo, nombre FROM \"colegio\" WHERE activo = true";
         Statement st;
         ResultSet datos = null;
         try{
@@ -36,11 +41,17 @@ public class ColegioDAO {
         }
         return datos;
     }
-    
+   /**
+     * Se acualiza el registro de un Colegio a activo = false.
+     * @param idColegio Id del colegio que se actualizara.
+     * @return True si se pudo actualizar.
+     * False si no fue posible actualizar el registro.
+     */
     public static Boolean eliminarColegio(int idColegio){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "DELETE FROM \"colegio\" WHERE idcolegio = " + idColegio;
+        String consulta = "UPDATE \"colegio\" SET activo=? "
+                + "WHERE \"idcolegio\" = ?;";
         Statement st;
         try{
             st = conn.createStatement();
@@ -53,17 +64,22 @@ public class ColegioDAO {
         }
         return resultado;
     }
-    
+    /**
+     * Registra en la base de datos un nuevo colegio.
+     * @param colegio que se registrará
+     * @return resultado del registro en forma ventana
+     */    
     public static Boolean registrarColegio(Colegio colegio){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO \"colegio\" (tipo, ciudad, activo) VALUES (?, ?, ?)";
+        String consulta = "INSERT INTO \"colegio\" (tipo, ciudad, activo, nombre) VALUES (?, ?, ?, ?)";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
             ps.setString(1, colegio.getTipoColegio());
             ps.setString(2, colegio.getCiudad());
             ps.setBoolean(3, colegio.getActivo());
+            ps.setString(4, colegio.getNombreColegio());
             
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
@@ -74,18 +90,24 @@ public class ColegioDAO {
         }
         return resultado;
     }
-    
+    /**
+     * Modifica en la base de datos el registro de un colegio.
+     * @param colegio Registro que se actualizará
+     * @return True si se pudo actualizar, 
+     * False si no fue posible actualizar el registro.
+     */
     public static Boolean modificarColegio(Colegio colegio){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE \"colegio\" SET tipo = ?, ciudad = ?, activo = ? WHERE idcolegio = ?";
+        String consulta = "UPDATE \"colegio\" SET tipo = ?, ciudad = ?, activo = ?, nombre = ? WHERE idcolegio = ?";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
             ps.setString(1, colegio.getTipoColegio());
             ps.setString(2, colegio.getCiudad());
             ps.setBoolean(3, colegio.getActivo());
-            ps.setInt(4, colegio.getIdColegio());
+            ps.setString(4, colegio.getNombreColegio());
+            ps.setInt(5, colegio.getIdColegio());
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
                 resultado = true;
