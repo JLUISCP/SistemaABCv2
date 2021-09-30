@@ -48,17 +48,17 @@ public class InfSaludDAO {
     public static Boolean crearInfSalud(InfSalud infSalud){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO \"salud\" (idinf_salud, eps, ips, ars, grupo_sang, sisben, idestudiante) VALUES(?,?,?,?,?,?,?) ";
+        String consulta = "INSERT INTO \"salud\" (idseguroMedico, peso, altura, presionArterial, grupo_sang, indiceMasaCorporal, idestudiante) VALUES(?,?,?,?,?,?,?) ";
         System.out.println(consulta);
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
-            ps.setInt(1, infSalud.getIdinf_salud());
-            ps.setString(2,infSalud.getEps());
-            ps.setString(3,infSalud.getIps());
-            ps.setString(4,infSalud.getArs());
+            ps.setInt(1, infSalud.getIdseguroMedico());
+            ps.setString(2,infSalud.getPeso());
+            ps.setString(3,infSalud.getAltura());
+            ps.setString(4,infSalud.getPresionArterial());
             ps.setString(5,infSalud.getGrupo_sang());
-            ps.setString(6,infSalud.getSisben());
+            ps.setString(6,infSalud.getIndiceMasaCorporal());
             ps.setInt(7,infSalud.getIdestudiante());
             
             int respuesta = ps.executeUpdate();

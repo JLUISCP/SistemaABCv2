@@ -11,76 +11,76 @@ package Clases;
  * @version 1.0.0
  */
 public class InfSalud {
-    int idinf_salud;
-    String eps;
-    String ips;
-    String ars;
+    int idseguroMedico;
+    String peso;
+    String altura;
+    String presionArterial;
     String grupo_sang;
-    String sisben;
+    String indiceMasaCorporal;
     int idestudiante;
     
     public InfSalud (){}
     
-    public InfSalud(int idinf_salud, String eps, String ips, String ars, String grupo_sang, String sisben, int idestudiante) {
-        this.idinf_salud = idinf_salud;
-        this.eps = eps;
-        this.ips = ips;
-        this.ars = ars;
+    public InfSalud(int idseguroMedico, String peso, String altura, String presionArterial, String grupo_sang, String indiceMasaCorporal, int idestudiante) {
+        this.idseguroMedico = idseguroMedico;
+        this.peso = peso;
+        this.altura = altura;
+        this.presionArterial = presionArterial;
         this.grupo_sang = grupo_sang;
-        this.sisben = sisben;
+        this.indiceMasaCorporal = indiceMasaCorporal;
         this.idestudiante = idestudiante;
     }
     
-    public int getIdinf_salud(){
-        return idinf_salud;
+    public int getIdseguroMedico(){
+        return idseguroMedico;
     }
     
-    public String getEps(){
-        return eps;
+    public String getPeso(){
+        return peso;
     }
     
-    public String getIps(){
-        return ips;
+    public String getAltura(){
+        return altura;
     }
     
-    public String getArs(){
-        return ars;
+    public String getPresionArterial(){
+        return presionArterial;
     }
     
     public String getGrupo_sang(){
         return grupo_sang;
     }
     
-    public String getSisben(){
-        return sisben;
+    public String getIndiceMasaCorporal(){
+        return indiceMasaCorporal;
     }
     
     public int getIdestudiante(){
         return idestudiante;
     }
     
-    public void setIdinf_salud(int idinf_salud){
-        this.idinf_salud = idinf_salud;
+    public void setIdseguroMedico(int idseguroMedico){
+        this.idseguroMedico = idseguroMedico;
     }
     
-    public void setEps(String eps){
-        this.eps = eps;
+    public void setPeso(String peso){
+        this.peso = peso;
     }
     
-    public void setIps(String ips){
-        this.ips = ips;
+    public void setAltura(String altura){
+        this.altura = altura;
     }
     
-    public void setArs(String ars){
-        this.ars = ars;
+    public void setPresionArterial(String presionArterial){
+        this.presionArterial = presionArterial;
     }
     
     public void setGrupo_sang(String grupo_sang){
         this.grupo_sang = grupo_sang;
     }
     
-    public void setSisben(String sisben){
-        this.sisben = sisben;
+    public void setIndiceMasaCorporal(String indiceMasaCorporal){
+        this.indiceMasaCorporal = indiceMasaCorporal;
     }
     
     public void setIdestudiante(int idestudiante){
