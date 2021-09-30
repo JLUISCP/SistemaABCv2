@@ -67,7 +67,7 @@ public class ColegioDAO {
     /**
      * Registra en la base de datos un nuevo colegio.
      * @param colegio que se registrará
-     * @return 
+     * @return resultado del registro en forma ventana
      */    
     public static Boolean registrarColegio(Colegio colegio){
         Boolean resultado = false;
