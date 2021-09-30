@@ -30,7 +30,7 @@ public class ColegioDAO {
      */
     public static ResultSet consultarColegios(){
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idcolegio, tipo, ciudad, activo FROM \"colegio\" WHERE activo = true";
+        String consulta = "SELECT idcolegio, tipo, ciudad, activo, nombre FROM \"colegio\" WHERE activo = true";
         Statement st;
         ResultSet datos = null;
         try{
