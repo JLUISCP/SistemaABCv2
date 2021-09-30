@@ -70,4 +70,29 @@ public class InfSaludDAO {
         }
         return resultado;
     }
+    
+        public static Boolean modificarInfSalud(InfSalud infSalud){
+        Boolean resultado = false;
+        Connection conn = Database.getConexion();
+        String consulta = "UPDATE \"salud\" SET peso = ?, altura = ?, presionArterial = ?, grupo_sang = ?, indiceMasaCorporal = ?, activo = ? WHERE idestudiante = ?";
+        PreparedStatement  ps;
+        try{
+            ps = conn.prepareStatement(consulta);
+            ps.setString(1,infSalud.getPeso());
+            ps.setString(2,infSalud.getAltura());
+            ps.setString(3,infSalud.getPresionArterial());
+            ps.setString(4,infSalud.getGrupo_sang());
+            ps.setString(5,infSalud.getIndiceMasaCorporal());
+            ps.setInt(6,infSalud.getIdestudiante());
+            ps.setBoolean(7,infSalud.getActivo());
+            int respuesta = ps.executeUpdate();
+            
+            if(respuesta > 0){
+                resultado = true;
+            }
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+        return resultado;
+    }
 }

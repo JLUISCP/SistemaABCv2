@@ -90,6 +90,11 @@ public class VistaInfSalud extends javax.swing.JFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         tbEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -206,8 +211,7 @@ public class VistaInfSalud extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
-        
+        //Aqui va el regreso para el poderoso menú
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void tbEstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEstudiantesMouseClicked
@@ -240,6 +244,30 @@ public class VistaInfSalud extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        if(camposVacios()){
+            InfSalud infSalud = new InfSalud();
+            
+            infSalud.setPeso(tfPeso.getText());
+            infSalud.setAltura(tfAltura.getText());
+            infSalud.setPresionArterial(tfPresionArterial.getText());
+            infSalud.setGrupo_sang(tfGrupoSanguineo.getText());
+            infSalud.setIndiceMasaCorporal(tfIMC.getText());
+            infSalud.setActivo(chActivo.isSelected());
+            infSalud.setIdestudiante(estudiante.getIdEstudiante());
+            Boolean resultado = InfSaludDAO.modificarInfSalud(infSalud);
+
+            if(resultado){
+                JOptionPane.showMessageDialog(null, "Modificacion exitosa");
+            }else{
+                JOptionPane.showMessageDialog(null, "Fallo la moficacion de la información de salud");
+            }
+            cargarDatos();
+        }else{
+            JOptionPane.showMessageDialog(null, "Favor de proporcionar toda la informacion");
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     private void llenarCampos() {
         tfPeso.setText(infSalud.getPeso());
@@ -284,7 +312,6 @@ public class VistaInfSalud extends javax.swing.JFrame {
         }catch(SQLException e){
             System.out.println(e.toString());
         }
-        btnModificar.setEnabled(false);
     }
         
     /**
