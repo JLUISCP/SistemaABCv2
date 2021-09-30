@@ -16,15 +16,17 @@ public class Colegio {
     String tipoColegio;
     String ciudad;
     Boolean activo;
+    String nombreColegio;
     
     public Colegio() {
     }
 
-    public Colegio(int idColegio, int idEstudiante, String tipoColegio, String ciudad, Boolean activo) {
+    public Colegio(int idColegio, String tipoColegio, String ciudad, Boolean activo, String nombreColegio) {
         this.idColegio = idColegio;
         this.tipoColegio = tipoColegio;
         this.ciudad = ciudad;
         this.activo = activo;
+        this.nombreColegio = nombreColegio;
     }
 
     public int getIdColegio() {
@@ -58,5 +60,15 @@ public class Colegio {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
+
+    public String getNombreColegio() {
+        return nombreColegio;
+    }
+
+    public void setNombreColegio(String nombreColegio) {
+        this.nombreColegio = nombreColegio;
+    }
+
+    
 
 }
