@@ -57,12 +57,10 @@ public class VistaGestion extends javax.swing.JFrame {
         tfPrimerApellido = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
- ModuloEstudiante
         Colegio = new javax.swing.JLabel();
         cbColegios = new javax.swing.JComboBox<>();
 
         btn_volver = new javax.swing.JButton();
- main
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
