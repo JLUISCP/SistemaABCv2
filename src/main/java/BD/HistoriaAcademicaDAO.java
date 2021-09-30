@@ -30,7 +30,7 @@ public class HistoriaAcademicaDAO {
      */
     public static ResultSet consultarHistoriaAcademica() {
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idhistorial_academico, idestudiante, cole_ant, año, grado, activo FROM \"historial_academico\"";
+        String consulta = "SELECT idhistorial_academico, idestudiante, cole_ant, año, grado, activo FROM \"historial_academico\" WHERE activo = true";
         Statement st;
         ResultSet datos = null;
         try {

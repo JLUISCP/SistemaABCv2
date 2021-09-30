@@ -64,25 +64,27 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         btnTipoPublica = new javax.swing.JRadioButton();
         btnTipoPrivada = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        tfNombreColegio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tbColegios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "idColegio", "Tipo", "Ciudad", "Estado actividad"
+                "idColegio", "Tipo", "Ciudad", "Estado actividad", "Nombre"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -129,7 +131,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Ciudad");
+        jLabel6.setText("Ciudad:");
 
         btnLimpiar.setText("Limpíar campos");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -144,6 +146,8 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         btnGroupHistoriales.add(btnTipoPrivada);
         btnTipoPrivada.setText("Privada");
 
+        jLabel2.setText("Nombre:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,31 +157,36 @@ public class VistaGestionColegio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 237, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(115, 115, 115))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(tfCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnTipoPrivada)
-                                    .addComponent(btnTipoPublica))
-                                .addGap(299, 299, 299)))
-                        .addGap(277, 277, 277))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnLimpiar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRegistrar)
                         .addGap(18, 18, 18)
                         .addComponent(btnModificar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)))
+                        .addComponent(btnEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 237, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfNombreColegio, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(115, 115, 115))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(tfCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(29, 29, 29)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnTipoPrivada)
+                                        .addComponent(btnTipoPublica))
+                                    .addGap(299, 299, 299))))
+                        .addGap(277, 277, 277)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -189,7 +198,11 @@ public class VistaGestionColegio extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfNombreColegio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addComponent(btnTipoPublica)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
@@ -226,6 +239,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         colegioSeleccionado.setTipoColegio(String.valueOf(tbColegios.getValueAt(seleccion, 1)));
         colegioSeleccionado.setCiudad(String.valueOf(tbColegios.getValueAt(seleccion, 2)));
         colegioSeleccionado.setActivo(Boolean.parseBoolean(String.valueOf(tbColegios.getValueAt(seleccion, 3))));
+        colegioSeleccionado.setNombreColegio(String.valueOf(tbColegios.getValueAt(seleccion, 4)));
         llenarCampos();
     }//GEN-LAST:event_tbColegiosMouseClicked
 /**
@@ -259,6 +273,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
             colegio.setTipoColegio(utilButton.getSelectedButtonText(btnGroupHistoriales));
             colegio.setCiudad(tfCiudad.getText());
             colegio.setActivo(chActivo.isSelected());
+            colegio.setNombreColegio(tfNombreColegio.getText());
             Boolean resultado = ColegioDAO.registrarColegio(colegio);
             if(resultado){
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
@@ -284,6 +299,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
             colegio.setTipoColegio(utilButton.getSelectedButtonText(btnGroupHistoriales));
             colegio.setCiudad(tfCiudad.getText());
             colegio.setActivo(chActivo.isSelected());
+            colegio.setCiudad(tfNombreColegio.getText());
             Boolean resultado = ColegioDAO.modificarColegio(colegio);
             if(resultado){
                 JOptionPane.showMessageDialog(null, "Modificacion exitosa");
@@ -307,20 +323,22 @@ public class VistaGestionColegio extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnTipoPublica;
     private javax.swing.JCheckBox chActivo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbColegios;
     private javax.swing.JTextField tfCiudad;
+    private javax.swing.JTextField tfNombreColegio;
     // End of variables declaration//GEN-END:variables
 
     private void cargarDatos() {
         DefaultTableModel model = new DefaultTableModel();
         ResultSet rs = ColegioDAO.consultarColegios();
-        model.setColumnIdentifiers(new Object[]{"idColegio", "TipoColegio", "Ciudad", "Estado actividad"});
+        model.setColumnIdentifiers(new Object[]{"idColegio", "TipoColegio", "Ciudad", "Estado actividad", "Nombre Colegio"});
         try{
             while(rs.next()){
-                model.addRow(new Object[]{rs.getInt("idcolegio"), rs.getString("tipo"), rs.getString("ciudad"), rs.getBoolean("activo")});
+                model.addRow(new Object[]{rs.getInt("idcolegio"), rs.getString("tipo"), rs.getString("ciudad"), rs.getBoolean("activo"), rs.getString("nombre")});
             }
             tbColegios.setModel(model);
         }catch(SQLException e){
