@@ -25,7 +25,7 @@ import java.sql.Statement;
 public class ColegioDAO {
     public static ResultSet consultarColegios(){
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idcolegio, privado, distrital, activo FROM \"colegio\"";
+        String consulta = "SELECT idcolegio, tipo, ciudad, activo FROM \"colegio\"";
         Statement st;
         ResultSet datos = null;
         try{
@@ -57,7 +57,7 @@ public class ColegioDAO {
     public static Boolean registrarColegio(Colegio colegio){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO \"colegio\" (privado, distrital, activo) VALUES (?, ?, ?)";
+        String consulta = "INSERT INTO \"colegio\" (tipo, ciudad, activo) VALUES (?, ?, ?)";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
@@ -78,7 +78,7 @@ public class ColegioDAO {
     public static Boolean modificarColegio(Colegio colegio){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE \"colegio\" SET privado = ?, distrital = ?, activo = ? WHERE idcolegio = ?";
+        String consulta = "UPDATE \"colegio\" SET tipo = ?, ciudad = ?, activo = ? WHERE idcolegio = ?";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
