@@ -18,13 +18,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author EduardoLeoLim
  */
-public class VistaAcudiente extends javax.swing.JFrame {
+public class VistaGestionAcudiente extends javax.swing.JFrame {
     private List<Acudiente> listaAcudientes;
     private Acudiente acudienteSeleccion;
     /**
      * Creates new form VistaAcudiente
      */
-    public VistaAcudiente() {
+    public VistaGestionAcudiente() {
         initComponents();
         listaAcudientes = new ArrayList<Acudiente>();
         acudienteSeleccion = null;
@@ -228,8 +228,6 @@ public class VistaAcudiente extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        lblTitulo.getAccessibleContext().setAccessibleName("Gestión de Tutores");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
