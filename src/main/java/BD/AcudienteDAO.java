@@ -24,9 +24,9 @@ public class AcudienteDAO {
      */
     public static ResultSet consultarAcudientes(){
         Connection conn = Database.getConexion();
-        String consulta = "SELECT \"idAcudiente\", \"nombreMadre\", \"nombrePadre\", "
-                + "email, telefono1, telefono2, activo, \"idEstudiante\" "
-                + "FROM \"Acudiente\" WHERE activo = true";
+        String consulta = "SELECT \"idacudiente\", \"nombremadre\", \"nombrepadre\", "
+                + "email, telefono1, telefono2, activo, \"idestudiante\" "
+                + "FROM \"acudiente\" WHERE activo = true";
         Statement st;
         ResultSet datos = null;
         try{
@@ -41,13 +41,14 @@ public class AcudienteDAO {
     /**
      * Registra en la base de datos un nuevo acudiente.
      * @param acudiente Acudiente que se registrará
-     * @return 
+     * @return True si se pudo actualizar, 
+     * False si no fue posible actualizar el registro.
      */
     public static boolean registrarAcudiente(Acudiente acudiente){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO public.\"Acudiente\"(" +
-            " \"nombreMadre\", \"nombrePadre\", email, \"idEstudiante\", " +
+        String consulta = "INSERT INTO public.\"acudiente\"(" +
+            " \"nombremadre\", \"nombrepadre\", email, \"idestudiante\", " +
             "activo, telefono1, telefono2)" +
             " VALUES ( ?, ?, ?, ?, ?, ?, ?);";
         
@@ -77,14 +78,14 @@ public class AcudienteDAO {
      * Modifica en la base de datos el registro de un acudiente.
      * @param acudiente Registro que se actualizará
      * @return True si se pudo actualizar, 
-     * Flase si no fue posible actualizar el registro.
+     * False si no fue posible actualizar el registro.
      */
     public static Boolean modificarAcudiente(Acudiente acudiente){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE public.\"Acudiente\" SET \"nombreMadre\"=?, "
-                + "\"nombrePadre\"=?, email=?, \"idEstudiante\"=?, activo=?, "
-                + "telefono1=?, telefono2=? WHERE \"idAcudiente\" = ?;";
+        String consulta = "UPDATE public.\"acudiente\" SET \"nombremadre\"=?, "
+                + "\"nombrepadre\"=?, email=?, \"idestudiante\"=?, activo=?, "
+                + "telefono1=?, telefono2=? WHERE \"idacudiente\" = ?;";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
@@ -111,13 +112,13 @@ public class AcudienteDAO {
      * Se acualiza el registro de un Acudiente a activo = flase.
      * @param IdAcudiente Id del Acudiente que se actualizara.
      * @return True si se pudo actualizar, 
-     * Flase si no fue posible actualizar el registro.
+     * False si no fue posible actualizar el registro.
      */
     public static Boolean eliminarAcudiente(int IdAcudiente){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE public.\"Acudiente\" SET activo=? "
-                + "WHERE \"idAcudiente\" = ?;";
+        String consulta = "UPDATE public.\"acudiente\" SET activo=? "
+                + "WHERE \"idacudiente\" = ?;";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
