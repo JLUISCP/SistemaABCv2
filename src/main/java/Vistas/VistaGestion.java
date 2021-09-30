@@ -57,8 +57,12 @@ public class VistaGestion extends javax.swing.JFrame {
         tfPrimerApellido = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
+ ModuloEstudiante
         Colegio = new javax.swing.JLabel();
         cbColegios = new javax.swing.JComboBox<>();
+
+        btn_volver = new javax.swing.JButton();
+ main
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,6 +148,13 @@ public class VistaGestion extends javax.swing.JFrame {
 
         cbColegios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btn_volver.setText("Volver");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,6 +192,8 @@ public class VistaGestion extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnLimpiar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_volver)
+                        .addGap(38, 38, 38)
                         .addComponent(btnRegistrar)
                         .addGap(18, 18, 18)
                         .addComponent(btnModificar)
@@ -225,7 +238,8 @@ public class VistaGestion extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnModificar)
                         .addComponent(btnRegistrar)
-                        .addComponent(btnLimpiar)))
+                        .addComponent(btnLimpiar)
+                        .addComponent(btn_volver)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -305,6 +319,10 @@ public class VistaGestion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+       super.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Colegio;
     private javax.swing.JButton btnEliminar;
@@ -312,6 +330,7 @@ public class VistaGestion extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<Object> cbColegios;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JCheckBox chActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

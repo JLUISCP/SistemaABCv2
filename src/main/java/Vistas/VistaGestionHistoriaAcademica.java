@@ -75,6 +75,7 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
         cmb_Estudiantes = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         lb_IdEstudiante = new javax.swing.JLabel();
+        btn_volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -159,6 +160,13 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
 
         lb_IdEstudiante.setText("Sin Id Seleccionado");
 
+        btn_volver.setText("Volver");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,7 +187,9 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(chActivo)
-                                .addGap(159, 159, 159))
+                                .addGap(56, 56, 56)
+                                .addComponent(btn_volver)
+                                .addGap(30, 30, 30))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(37, 37, 37))
@@ -215,7 +225,8 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnModificar)
                                 .addComponent(btnRegistrar)
-                                .addComponent(btnLimpiar)))
+                                .addComponent(btnLimpiar)
+                                .addComponent(btn_volver)))
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -340,11 +351,16 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        super.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JCheckBox chActivo;
     private javax.swing.JComboBox<String> cmb_Estudiantes;
     private javax.swing.JLabel jLabel1;

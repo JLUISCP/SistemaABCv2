@@ -65,6 +65,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         btnTipoPrivada = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         tfNombreColegio = new javax.swing.JTextField();
+        btn_Volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -147,6 +148,13 @@ public class VistaGestionColegio extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre:");
 
+        btn_Volver.setText("Volver");
+        btn_Volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_VolverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,6 +166,8 @@ public class VistaGestionColegio extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnLimpiar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Volver)
+                        .addGap(41, 41, 41)
                         .addComponent(btnRegistrar)
                         .addGap(18, 18, 18)
                         .addComponent(btnModificar)
@@ -219,7 +229,8 @@ public class VistaGestionColegio extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnModificar)
                         .addComponent(btnRegistrar)
-                        .addComponent(btnLimpiar)))
+                        .addComponent(btnLimpiar)
+                        .addComponent(btn_Volver)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -312,6 +323,10 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void btn_VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_VolverActionPerformed
+        super.dispose();
+    }//GEN-LAST:event_btn_VolverActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.ButtonGroup btnGroupHistoriales;
@@ -320,6 +335,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JRadioButton btnTipoPrivada;
     private javax.swing.JRadioButton btnTipoPublica;
+    private javax.swing.JButton btn_Volver;
     private javax.swing.JCheckBox chActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -131,7 +131,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVistaEstudianteActionPerformed
 
     private void btnVistaSaludActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVistaSaludActionPerformed
-        // TODO add your handling code here:
+        new VistaInfSalud().setVisible(true);
     }//GEN-LAST:event_btnVistaSaludActionPerformed
 
     private void btnVistaHistoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVistaHistoriaActionPerformed
