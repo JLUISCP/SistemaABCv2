@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class VistaGestionAcudiente extends javax.swing.JFrame {
     private List<Acudiente> listaAcudientes;
     private Acudiente acudienteSeleccion;
+    
     /**
      * Creates new form VistaAcudiente
      */
@@ -232,6 +233,10 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Este metodo ocurre al dar clic en el botón Registrar.
+     * Valida los campos del formulario y registra al nuevo Acudiente.
+     */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if(validarCamposVacios()){
             String estudiante = cbxEstudiante.getSelectedItem().toString();
@@ -259,6 +264,10 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+    /**
+     * Este método ocurre al dar clic en le botón editar.
+     * Actualiza el registro de un Acudiente que fue seleccionado.
+     */
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if(validarCamposVacios()){
             String estudiante = cbxEstudiante.getSelectedItem().toString();
@@ -284,6 +293,10 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    /**
+     * Este método se ejecuta al hacer clic en el boton Eliminar.
+     * Cambia l desactivo el estatus del eregistro de acudiente que fue seleccionado de la tabla.
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int indice = this.tblTutores.getSelectedRow();
         if(indice >= 0){
@@ -305,12 +318,20 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         this.limpiarCampos();
     }//GEN-LAST:event_btnLimpiarFormActionPerformed
 
+    /**
+     * Este método se ejecuta al seleccionar una fila de la tabla de registros.
+     * Lenna el formulario con los datos del acudiente seleccionado, 
+     * habilita los botones de eliminacion, edicion y limpiar formularo.
+     */
     private void tblTutoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTutoresMouseClicked
         int seleccion = this.tblTutores.getSelectedRow();
         acudienteSeleccion = this.listaAcudientes.get(seleccion);
         this.llenarCampos();
     }//GEN-LAST:event_tblTutoresMouseClicked
 
+    /**
+     * Consulta los registros de acudientes y los muestra en la tabla.
+     */
     private void cargarDatos(){
         DefaultTableModel model = new DefaultTableModel();
         ResultSet rs = AcudienteDAO.consultarAcudientes();
@@ -340,6 +361,9 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         btnEditar.setEnabled(false);
     }
     
+    /**
+     * Limpia los campos del formulario de registro
+     */
     private void limpiarCampos(){
         this.txtNombreMadre.setText("");
         this.txtNombrePadre.setText("");
@@ -353,6 +377,11 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         this.cargarCmbEstudiantes();
     }
     
+    /**
+     * Valida que los campos del formulario no se encuentren vacios, 
+     * En el caso del ComboBox, valida que un registro de estudiante este seleccionado.
+     * @return True si ningun campos esta vacio, False si uno de los campos esta vacio.
+     */
     private boolean validarCamposVacios(){
         Boolean camposLLenos = true;
         if(txtNombreMadre.getText() == ""){
@@ -376,6 +405,9 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         return camposLLenos;
     }
     
+    /**
+     * Carga los datos de los Estudiantes en el ComboBox del formulario.
+     */
     private void cargarCmbEstudiantes() {
         cbxEstudiante.removeAllItems();
         ResultSet rs = EstudianteDAO.consultarEstudiantes();
@@ -395,6 +427,9 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Llena los campos del formulario con el registro de Acudiente que fue seleccionado de la tabla.
+     */
     private void llenarCampos(){
         this.txtEmail.setText(acudienteSeleccion.getDirec_elect());
         this.txtNombreMadre.setText(acudienteSeleccion.getNom_madre());
