@@ -28,7 +28,7 @@ public class InfSaludDAO {
      */
     public static ResultSet consultarInfSalud(){
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idestudiante, primernombre, segundonombre, primerapellido, segundoapellido, activo FROM \"salud\"";
+        String consulta = "SELECT es.idestudiante, es.primernombre, es.primerapellido, es.segundonombre, es.segundoapellido, sa.activo FROM \"Estudiante\" es INNER JOIN \"salud\" sa ON es.idestudiante = sa.idestudiante";
         Statement st;
         ResultSet informacion = null;
         try{
@@ -48,18 +48,18 @@ public class InfSaludDAO {
     public static Boolean crearInfSalud(InfSalud infSalud){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO \"salud\" (idseguroMedico, peso, altura, presionArterial, grupo_sang, indiceMasaCorporal, idestudiante) VALUES(?,?,?,?,?,?,?) ";
+        String consulta = "INSERT INTO \"salud\" (peso, altura, presionArterial, grupo_sang, indiceMasaCorporal, idestudiante, activo) VALUES(?,?,?,?,?,?,?) ";
         System.out.println(consulta);
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
-            ps.setInt(1, infSalud.getIdseguroMedico());
-            ps.setString(2,infSalud.getPeso());
-            ps.setString(3,infSalud.getAltura());
-            ps.setString(4,infSalud.getPresionArterial());
-            ps.setString(5,infSalud.getGrupo_sang());
-            ps.setString(6,infSalud.getIndiceMasaCorporal());
-            ps.setInt(7,infSalud.getIdestudiante());
+            ps.setString(1,infSalud.getPeso());
+            ps.setString(2,infSalud.getAltura());
+            ps.setString(3,infSalud.getPresionArterial());
+            ps.setString(4,infSalud.getGrupo_sang());
+            ps.setString(5,infSalud.getIndiceMasaCorporal());
+            ps.setInt(6,infSalud.getIdestudiante());
+            ps.setBoolean(7,infSalud.getActivo());
             
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){

@@ -4,17 +4,29 @@
  */
 package Vistas;
 
+import BD.EstudianteDAO;
+import BD.InfSaludDAO;
+import Clases.Estudiante;
+import Clases.InfSalud;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author enano
  */
 public class VistaInfSalud extends javax.swing.JFrame {
+    Estudiante estudiante = new Estudiante();
+    InfSalud infSalud = new InfSalud();
 
     /**
      * Creates new form VistaInfSalud
      */
     public VistaInfSalud() {
         initComponents();
+        cargarDatos();
     }
 
     /**
@@ -42,6 +54,7 @@ public class VistaInfSalud extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbEstudiantes = new javax.swing.JTable();
+        chActivo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Información Salud");
@@ -68,6 +81,11 @@ public class VistaInfSalud extends javax.swing.JFrame {
         });
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnModificar.setText("Modificar");
 
@@ -76,14 +94,14 @@ public class VistaInfSalud extends javax.swing.JFrame {
 
             },
             new String [] {
-                "idEstudiante", "Primer Nombre", "Segundo Nombre", "Primer Apellido", "Segundo Apellido", "Activo salud"
+                "idEstudiante", "Primer Nombre", "Segundo Nombre", "Primer Apellido", "Segundo Apellido"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -94,7 +112,14 @@ public class VistaInfSalud extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbEstudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbEstudiantesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbEstudiantes);
+
+        chActivo.setText("Activo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,7 +157,9 @@ public class VistaInfSalud extends javax.swing.JFrame {
                                 .addGap(28, 28, 28)
                                 .addComponent(btnModificar)))
                         .addGap(26, 26, 26)
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chActivo))
                         .addGap(0, 21, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -155,7 +182,8 @@ public class VistaInfSalud extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(tfPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(tfPresionArterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfPresionArterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chActivo))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -180,6 +208,84 @@ public class VistaInfSalud extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void tbEstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbEstudiantesMouseClicked
+        // TODO add your handling code here:
+        int seleccion = tbEstudiantes.rowAtPoint(evt.getPoint());
+        estudiante.setIdEstudiante(Integer.parseInt(String.valueOf(tbEstudiantes.getValueAt(seleccion, 0))));
+        estudiante.setPrimerNombre(String.valueOf(tbEstudiantes.getValueAt(seleccion, 1)));
+        estudiante.setSegundoNombre(String.valueOf(tbEstudiantes.getValueAt(seleccion, 2)));
+        estudiante.setPrimerApellido(String.valueOf(tbEstudiantes.getValueAt(seleccion, 3)));
+        estudiante.setSegundoApellido(String.valueOf(tbEstudiantes.getValueAt(seleccion, 4)));
+        llenarCampos();
+    }//GEN-LAST:event_tbEstudiantesMouseClicked
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        if(camposVacios()){
+            InfSalud infSalud = new InfSalud();
+            
+            infSalud.setPeso(tfPeso.getText());
+            infSalud.setAltura(tfAltura.getText());
+            infSalud.setPresionArterial(tfPresionArterial.getText());
+            infSalud.setGrupo_sang(tfGrupoSanguineo.getText());
+            infSalud.setIndiceMasaCorporal(tfIMC.getText());
+            infSalud.setActivo(chActivo.isSelected());
+            infSalud.setIdestudiante(estudiante.getIdEstudiante());
+            Boolean resultado = InfSaludDAO.crearInfSalud(infSalud);
+            if(resultado){
+                JOptionPane.showMessageDialog(null, "Registro exitoso");
+            }else{
+                JOptionPane.showMessageDialog(null, "Fallo el registro de la información de salud");
+            }
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void llenarCampos() {
+        tfPeso.setText(infSalud.getPeso());
+        tfAltura.setText(infSalud.getAltura());
+        tfPresionArterial.setText(infSalud.getPresionArterial());
+        tfGrupoSanguineo.setText(infSalud.getGrupo_sang());
+        tfIMC.setText(infSalud.getIndiceMasaCorporal());
+        chActivo.setSelected(infSalud.getActivo());
+        btnModificar.setEnabled(true);
+        btnAgregar.setEnabled(true);
+    }
+    
+    private boolean camposVacios(){
+        Boolean camposLlenos = true;
+        if(tfPeso.getText() == ""){
+            camposLlenos = false;
+        }
+        if(tfAltura.getText() == ""){
+            camposLlenos = false;
+        }
+        if(tfPresionArterial.getText() == ""){
+            camposLlenos = false;
+        }
+        if(tfGrupoSanguineo.getText() == ""){
+            camposLlenos = false;
+        }
+        if(tfIMC.getText() == ""){
+            camposLlenos = false;
+        }
+        return camposLlenos; 
+    }
+    
+    private void cargarDatos() {
+        DefaultTableModel model = new DefaultTableModel();
+        ResultSet rs = EstudianteDAO.consultarEstudiantes();
+        model.setColumnIdentifiers(new Object[]{"idEstudiante","Primer nombre", "Segundo nombre", "Primer apellido", "Segundo apellido"});
+        try{
+            while(rs.next()){
+                model.addRow(new Object[]{rs.getInt("idestudiante"), rs.getString("primernombre"), rs.getString("segundonombre"), rs.getString("primerapellido"), rs.getString("segundoapellido")});
+                System.out.println("hlou");
+            }
+            tbEstudiantes.setModel(model);
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+        btnModificar.setEnabled(false);
+    }
+        
     /**
      * @param args the command line arguments
      */
@@ -219,6 +325,7 @@ public class VistaInfSalud extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JCheckBox chActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
