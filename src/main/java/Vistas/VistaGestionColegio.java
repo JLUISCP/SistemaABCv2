@@ -65,7 +65,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         btnTipoPublica = new javax.swing.JRadioButton();
         btnTipoPrivada = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbColegios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
