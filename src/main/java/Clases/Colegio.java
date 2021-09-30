@@ -5,25 +5,25 @@
  */
 package Clases;
 
-/**
- *
+/* Clase para almacenar todos los atributos
+ * de la tabla colegio en la base de datos
+ * de PostgreSQL para su posterior manipulación
+ * y consulta dentro del sistema
  * @author asisr
  */
 public class Colegio {
     int idColegio;
-    int idEstudiante;
-    String privado;
-    String distrital;
+    String tipoColegio;
+    String ciudad;
     Boolean activo;
     
     public Colegio() {
     }
 
-    public Colegio(int idColegio, int idEstudiante, String privado, String distrital, Boolean activo) {
+    public Colegio(int idColegio, int idEstudiante, String tipoColegio, String ciudad, Boolean activo) {
         this.idColegio = idColegio;
-        this.idEstudiante = idEstudiante;
-        this.privado = privado;
-        this.distrital = distrital;
+        this.tipoColegio = tipoColegio;
+        this.ciudad = ciudad;
         this.activo = activo;
     }
 
@@ -35,28 +35,20 @@ public class Colegio {
         this.idColegio = idColegio;
     }
 
-    public int getIdEstudiante() {
-        return idEstudiante;
+    public String getTipoColegio() {
+        return tipoColegio;
     }
 
-    public void setIdEstudiante(int idEstudiante) {
-        this.idEstudiante = idEstudiante;
+    public void setTipoColegio(String tipoColegio) {
+        this.tipoColegio = tipoColegio;
     }
 
-    public String getPrivado() {
-        return privado;
+    public String getCiudad() {
+        return ciudad;
     }
 
-    public void setPrivado(String privado) {
-        this.privado = privado;
-    }
-
-    public String getDistrital() {
-        return distrital;
-    }
-
-    public void setDistrital(String distrital) {
-        this.distrital = distrital;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public Boolean getActivo() {
@@ -67,5 +59,4 @@ public class Colegio {
         this.activo = activo;
     }
 
-    
 }

@@ -14,13 +14,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
+ * Data Access Object para la tabla Colagio de la base de datos
+ * Escuela en PostgreSQL.
+ * En esta clase se controlan todas las conexiones que se realizan a la BD
+ * para realizar las operaciones de crear, actualizar, consultar y eliminar
+ * de la tabla Colegio
  *
  * @author asisr
  */
 public class ColegioDAO {
     public static ResultSet consultarColegios(){
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idcolegio, idestudiante, privado, distrital, activo FROM \"Colegio\"";
+        String consulta = "SELECT idcolegio, privado, distrital, activo FROM \"colegio\"";
         Statement st;
         ResultSet datos = null;
         try{
@@ -35,7 +40,7 @@ public class ColegioDAO {
     public static Boolean eliminarColegio(int idColegio){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "DELETE FROM \"Colegio\" WHERE idcolegio = " + idColegio;
+        String consulta = "DELETE FROM \"colegio\" WHERE idcolegio = " + idColegio;
         Statement st;
         try{
             st = conn.createStatement();
@@ -52,14 +57,13 @@ public class ColegioDAO {
     public static Boolean registrarColegio(Colegio colegio){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO \"Colegio\" (idestudiante, privado, distrital, activo) VALUES (?, ?, ?, ?)";
+        String consulta = "INSERT INTO \"colegio\" (privado, distrital, activo) VALUES (?, ?, ?)";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
-            ps.setInt(1, colegio.getIdEstudiante());
-            ps.setString(2, colegio.getPrivado());
-            ps.setString(3, colegio.getDistrital());
-            ps.setBoolean(4, colegio.getActivo());
+            ps.setString(1, colegio.getTipoColegio());
+            ps.setString(2, colegio.getCiudad());
+            ps.setBoolean(3, colegio.getActivo());
             
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
@@ -74,15 +78,14 @@ public class ColegioDAO {
     public static Boolean modificarColegio(Colegio colegio){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE \"Colegio\" SET idestudiante = ?, privado = ?, distrital = ?, activo = ? WHERE idestudiante = ?";
+        String consulta = "UPDATE \"colegio\" SET privado = ?, distrital = ?, activo = ? WHERE idcolegio = ?";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
-            ps.setInt(1, colegio.getIdEstudiante());
-            ps.setString(2, colegio.getPrivado());
-            ps.setString(3, colegio.getDistrital());
-            ps.setBoolean(4, colegio.getActivo());
-            ps.setInt(6, colegio.getIdColegio());
+            ps.setString(1, colegio.getTipoColegio());
+            ps.setString(2, colegio.getCiudad());
+            ps.setBoolean(3, colegio.getActivo());
+            ps.setInt(4, colegio.getIdColegio());
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
                 resultado = true;
