@@ -4,6 +4,10 @@
  */
 package Vistas;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ecarv
@@ -40,7 +44,8 @@ public class Main {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaInfSalud().setVisible(true);
+
+                new VistaGestionColegio().setVisible(true);
             }
         });
     }

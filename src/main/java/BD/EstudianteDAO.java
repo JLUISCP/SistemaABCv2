@@ -20,7 +20,7 @@ public class EstudianteDAO {
     
     public static ResultSet consultarEstudiantes(){
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idestudiante, primernombre, segundonombre, primerapellido, segundoapellido, activo FROM \"Estudiante\"";
+        String consulta = "SELECT idestudiante, primernombre, segundonombre, primerapellido, segundoapellido, activo FROM \"estudiante\"";
         Statement st;
         ResultSet datos = null;
         try{
@@ -35,7 +35,7 @@ public class EstudianteDAO {
     public static Boolean eliminarEstudiante(int idEstudiante){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "DELETE FROM \"Estudiante\" WHERE idestudiante = " + idEstudiante;
+        String consulta = "DELETE FROM \"estudiante\" WHERE idestudiante = " + idEstudiante;
         Statement st;
         try{
             st = conn.createStatement();
@@ -52,7 +52,7 @@ public class EstudianteDAO {
     public static Boolean registrarEstudiante(Estudiante estudiante){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO \"Estudiante\" (primernombre, segundonombre, primerapellido, segundoapellido, activo) VALUES (?, ?, ?, ?, ?)";
+        String consulta = "INSERT INTO \"estudiante\" (primernombre, segundonombre, primerapellido, segundoapellido, activo) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
@@ -75,7 +75,7 @@ public class EstudianteDAO {
     public static Boolean modificarEstudiante(Estudiante estudiante){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE \"Estudiante\" SET primernombre = ?, segundonombre = ?, primerapellido = ?, segundoapellido = ?, activo = ? WHERE idestudiante = ?";
+        String consulta = "UPDATE \"estudiante\" SET primernombre = ?, segundonombre = ?, primerapellido = ?, segundoapellido = ?, activo = ? WHERE idestudiante = ?";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
