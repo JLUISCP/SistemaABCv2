@@ -17,7 +17,7 @@ import java.sql.Statement;
 public class Database {
     private static String db = "Escuela";
     private static String username = "postgres";
-    private static String password = "Pythonjavascript29.";
+    private static String password = "Emilio2206";
     private static String host = "localhost:5432";
     private static String url = "jdbc:postgresql://"+host+"/"+db;
     
