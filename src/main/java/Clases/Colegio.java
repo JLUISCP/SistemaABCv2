@@ -69,6 +69,8 @@ public class Colegio {
         this.nombreColegio = nombreColegio;
     }
 
-    
-
+    @Override
+    public String toString() {
+        return nombreColegio;
+    }
 }

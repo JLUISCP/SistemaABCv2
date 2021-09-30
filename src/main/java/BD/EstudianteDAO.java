@@ -20,7 +20,7 @@ public class EstudianteDAO {
     
     public static ResultSet consultarEstudiantes(){
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idestudiante, primernombre, segundonombre, primerapellido, segundoapellido, activo FROM \"estudiante\"";
+        String consulta = "SELECT e.idestudiante, e.primernombre, e.segundonombre, e.primerapellido, e.segundoapellido, e.activo, c.nombre as nombrecolegio FROM estudiante e LEFT JOIN colegio c on e.idcolegio = c.idcolegio WHERE e.activo = true";
         Statement st;
         ResultSet datos = null;
         try{
@@ -35,7 +35,7 @@ public class EstudianteDAO {
     public static Boolean eliminarEstudiante(int idEstudiante){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "DELETE FROM \"estudiante\" WHERE idestudiante = " + idEstudiante;
+        String consulta = "UPDATE \"estudiante\" SET activo = false";
         Statement st;
         try{
             st = conn.createStatement();
@@ -52,7 +52,7 @@ public class EstudianteDAO {
     public static Boolean registrarEstudiante(Estudiante estudiante){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO \"estudiante\" (primernombre, segundonombre, primerapellido, segundoapellido, activo) VALUES (?, ?, ?, ?, ?)";
+        String consulta = "INSERT INTO \"estudiante\" (primernombre, segundonombre, primerapellido, segundoapellido, activo, idcolegio) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
@@ -61,6 +61,7 @@ public class EstudianteDAO {
             ps.setString(3, estudiante.getPrimerApellido());
             ps.setString(4, estudiante.getSegundoApellido());
             ps.setBoolean(5, estudiante.getActivo());
+            ps.setInt(6, estudiante.getIdColegio());
             
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
@@ -75,7 +76,7 @@ public class EstudianteDAO {
     public static Boolean modificarEstudiante(Estudiante estudiante){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE \"estudiante\" SET primernombre = ?, segundonombre = ?, primerapellido = ?, segundoapellido = ?, activo = ? WHERE idestudiante = ?";
+        String consulta = "UPDATE \"estudiante\" SET primernombre = ?, segundonombre = ?, primerapellido = ?, segundoapellido = ?, activo = ?, idcolegio = ? WHERE idestudiante = ?";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
@@ -84,7 +85,8 @@ public class EstudianteDAO {
             ps.setString(3, estudiante.getPrimerApellido());
             ps.setString(4, estudiante.getSegundoApellido());
             ps.setBoolean(5, estudiante.getActivo());
-            ps.setInt(6, estudiante.getIdEstudiante());
+            ps.setInt(6, estudiante.getIdColegio());
+            ps.setInt(7, estudiante.getIdEstudiante());
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
                 resultado = true;

@@ -16,6 +16,7 @@ public class Estudiante {
     String primerApellido;
     String segundoApellido;
     Boolean activo;
+    int idColegio;
 
     public Estudiante() {
     }
@@ -53,6 +54,10 @@ public class Estudiante {
         return activo;
     }
 
+    public int getIdColegio() {
+        return idColegio;
+    }
+
     public void setIdEstudiante(int idEstudiante) {
         this.idEstudiante = idEstudiante;
     }
@@ -77,5 +82,7 @@ public class Estudiante {
         this.activo = activo;
     }
 
-    
+    public void setIdColegio(int idColegio) {
+        this.idColegio = idColegio;
+    }
 }

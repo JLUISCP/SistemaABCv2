@@ -1,8 +1,10 @@
 package Vistas;
 
 
+import BD.ColegioDAO;
 import BD.Database;
 import BD.EstudianteDAO;
+import Clases.Colegio;
 import Clases.Estudiante;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +29,7 @@ public class VistaGestion extends javax.swing.JFrame {
     public VistaGestion() {
         initComponents();
         cargarDatos();
+        cargarColegios();
     }
 
     /**
@@ -54,6 +57,8 @@ public class VistaGestion extends javax.swing.JFrame {
         tfPrimerApellido = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
+        Colegio = new javax.swing.JLabel();
+        cbColegios = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -135,6 +140,10 @@ public class VistaGestion extends javax.swing.JFrame {
             }
         });
 
+        Colegio.setText("Colegio");
+
+        cbColegios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,12 +168,15 @@ public class VistaGestion extends javax.swing.JFrame {
                                     .addComponent(tfPrimerNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(Colegio))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tfSegundoApellido)
-                                    .addComponent(tfPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(tfPrimerApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                                    .addComponent(cbColegios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(277, 277, 277))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnLimpiar)
@@ -178,14 +190,14 @@ public class VistaGestion extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(chActivo)
-                .addGap(444, 444, 444))
+                .addGap(452, 452, 452))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tfPrimerNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -201,9 +213,13 @@ public class VistaGestion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tfSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Colegio)
+                    .addComponent(cbColegios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(chActivo)
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -252,6 +268,7 @@ public class VistaGestion extends javax.swing.JFrame {
             estudiante.setPrimerApellido(tfPrimerApellido.getText());
             estudiante.setSegundoApellido(tfSegundoApellido.getText());
             estudiante.setActivo(chActivo.isSelected());
+            estudiante.setIdColegio(((Colegio)cbColegios.getSelectedItem()).getIdColegio());
             Boolean resultado = EstudianteDAO.registrarEstudiante(estudiante);
             if(resultado){
                 JOptionPane.showMessageDialog(null, "Registro exitoso");
@@ -274,6 +291,7 @@ public class VistaGestion extends javax.swing.JFrame {
             estudiante.setPrimerApellido(tfPrimerApellido.getText());
             estudiante.setSegundoApellido(tfSegundoApellido.getText());
             estudiante.setActivo(chActivo.isSelected());
+            estudiante.setIdColegio(((Colegio)cbColegios.getSelectedItem()).getIdColegio());
             Boolean resultado = EstudianteDAO.modificarEstudiante(estudiante);
             if(resultado){
                 JOptionPane.showMessageDialog(null, "Modificacion exitosa");
@@ -288,10 +306,12 @@ public class VistaGestion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Colegio;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<Object> cbColegios;
     private javax.swing.JCheckBox chActivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -309,12 +329,10 @@ public class VistaGestion extends javax.swing.JFrame {
     private void cargarDatos() {
         DefaultTableModel model = new DefaultTableModel();
         ResultSet rs = EstudianteDAO.consultarEstudiantes();
-        model.setColumnIdentifiers(new Object[]{"idEstudiante","Primer nombre", "Segundo nombre", "Primer apellido", "Segundo apellido", "Estado actividad"});
+        model.setColumnIdentifiers(new Object[]{"idEstudiante","Primer nombre", "Segundo nombre", "Primer apellido", "Segundo apellido", "Estado actividad", "Colegio"});
         try{
             while(rs.next()){
-                model.addRow(new Object[]{rs.getInt("idestudiante"), rs.getString("primernombre"), rs.getString("segundonombre"), rs.getString("primerapellido"), rs.getString("segundoapellido"), rs.getBoolean("activo")});
-                System.out.println("hlou");
-                
+                model.addRow(new Object[]{rs.getInt("idestudiante"), rs.getString("primernombre"), rs.getString("segundonombre"), rs.getString("primerapellido"), rs.getString("segundoapellido"), rs.getBoolean("activo"), rs.getString("nombrecolegio")});                
             }
             tbEstudiantes.setModel(model);
         }catch(SQLException e){
@@ -341,7 +359,6 @@ public class VistaGestion extends javax.swing.JFrame {
         tfSegundoNombre.setText("");
         tfPrimerApellido.setText("");
         tfSegundoApellido.setText("");
-        chActivo.setSelected(false);
         btnLimpiar.setEnabled(false);
         btnRegistrar.setEnabled(true);
         btnEliminar.setEnabled(false);
@@ -363,5 +380,27 @@ public class VistaGestion extends javax.swing.JFrame {
             camposLLenos = false;
         }
         return camposLLenos;
+    }
+
+    private void cargarColegios() {
+        cbColegios.removeAllItems();
+        ResultSet rs = ColegioDAO.consultarColegios();
+        //Rest of your code here
+        ArrayList<Colegio> listaColegios = new ArrayList<>();
+        try {
+            while ((rs.next())) {
+                Colegio colegio = new Colegio();
+                colegio.setIdColegio(rs.getInt("idcolegio"));
+                colegio.setNombreColegio(rs.getString("nombre"));
+                listaColegios.add(colegio);
+            }
+            for(Colegio colegio : listaColegios){
+                cbColegios.addItem(colegio);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println("Conexión cerrada");
+        }
     }
 }
