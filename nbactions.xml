@@ -11,7 +11,7 @@
             </goals>
             <properties>
                 <exec.vmArgs></exec.vmArgs>
-                <exec.args>-classpath %classpath ${packageClassName}</exec.args>
+                <exec.args>-classpath %classpath Vistas.Main</exec.args>
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>Vistas.Main</exec.mainClass>
                 <exec.executable>java</exec.executable>
