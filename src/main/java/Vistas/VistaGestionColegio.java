@@ -38,7 +38,6 @@ public class VistaGestionColegio extends javax.swing.JFrame {
     public VistaGestionColegio() {
         initComponents();
         cargarDatos();
-        cargarCmbEstudiantes();
     }
 
     /**
@@ -331,7 +330,11 @@ public class VistaGestionColegio extends javax.swing.JFrame {
     private javax.swing.JTextField tfCiudad;
     private javax.swing.JTextField tfNombreColegio;
     // End of variables declaration//GEN-END:variables
-
+/**
+ * Este método carga los datos desde la 
+ * tabla de base de datos colegio
+ * a un componente JTable
+ */
     private void cargarDatos() {
         DefaultTableModel model = new DefaultTableModel();
         ResultSet rs = ColegioDAO.consultarColegios();
@@ -347,19 +350,12 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         btnEliminar.setEnabled(false);
         btnModificar.setEnabled(false);
     }
-    
-    private void cargarCmbEstudiantes() {
-        
-    }
-
+/**
+ * Este método carga los datos desde la 
+ * tabla de base de datos colegio
+ * a un componente JTable
+ */
     private void llenarCampos() {
-        /*if(colegioSeleccionado.getTipoColegio().t == "Privada"){
-            btnGroupHistoriales.setSelected(btnTipoPrivada.getModel(), true);
-        }
-        if(colegioSeleccionado.getTipoColegio() == "Pública"){
-            btnGroupHistoriales.setSelected(btnTipoPublica.getModel(), true);
-        }
-*/
         tfCiudad.setText(colegioSeleccionado.getCiudad());
         chActivo.setSelected(colegioSeleccionado.getActivo());
         btnEliminar.setEnabled(true);
@@ -367,7 +363,11 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         btnLimpiar.setEnabled(true);
         btnRegistrar.setEnabled(false);
     }
-
+/**
+ * Este método limpia los cambos de los
+ * text fields que almacenan la información
+ * sobre el colegio
+ */
     private void limpiarCampos() {
         btnGroupHistoriales.clearSelection();
         tfCiudad.setText("");
@@ -377,7 +377,11 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         btnEliminar.setEnabled(false);
         btnModificar.setEnabled(false);
     }
-
+    /**
+     * Valida los campos vacíos de los textfields
+     * de Colegios
+     * @return camposLLenos como valor true Boolean
+     */
     private Boolean validarCamposVacios() {
         Boolean camposLLenos = true;
         if(btnGroupHistoriales.getSelection() == null){
@@ -386,7 +390,9 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         if("".equals(tfCiudad.getText())){
             camposLLenos = false;
         }
+        if("".equals(tfNombreColegio.getText())){
+            camposLLenos = false;
+        }
         return camposLLenos;
     }
-    
 }

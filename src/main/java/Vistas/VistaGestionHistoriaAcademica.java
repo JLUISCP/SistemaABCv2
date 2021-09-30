@@ -360,7 +360,11 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
     private javax.swing.JTextField tfColegioAnterior;
     private javax.swing.JTextField tfGrado;
     // End of variables declaration//GEN-END:variables
-
+/**
+ * Este método carga los datos desde la 
+ * tabla de base de datos historial_academico
+ * a un componente JTable
+ */
     private void cargarDatos() {
         DefaultTableModel model = new DefaultTableModel();
         ResultSet rs = HistoriaAcademicaDAO.consultarHistoriaAcademica();
@@ -393,7 +397,11 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
             System.out.println("Conexión cerrada");
         }
     }
-
+/**
+ * Este método carga los datos desde la 
+ * tabla de base de datos historial académico
+ * a un componente JTable
+ */
     private void llenarCampos() {
         tfColegioAnterior.setText(historialSeleccionado.getColegio_Anterior());
         tfAñoHistorial.setText(historialSeleccionado.getAño());
@@ -404,7 +412,11 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
         btnLimpiar.setEnabled(true);
         btnRegistrar.setEnabled(false);
     }
-
+/**
+ * Este método limpia los cambos de los
+ * text fields que almacenan la información
+ * sobre el historial académico
+ */
     private void limpiarCampos() {
         tfGrado.setText("");
         tfAñoHistorial.setText("");
@@ -415,7 +427,11 @@ public class VistaGestionHistoriaAcademica extends javax.swing.JFrame {
         btnEliminar.setEnabled(false);
         btnModificar.setEnabled(false);
     }
-
+    /**
+     * Valida los campos vacíos de los textfields
+     * de Historiales académicos
+     * @return camposLLenos como valor true Boolean
+     */
     private Boolean validarCamposVacios() {
         Boolean camposLLenos = true;
         if (tfColegioAnterior.getText() == "") {
