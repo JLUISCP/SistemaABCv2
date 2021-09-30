@@ -61,6 +61,7 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         btnLimpiarForm = new javax.swing.JButton();
         javax.swing.JLabel lblEstudiante = new javax.swing.JLabel();
         cbxEstudiante = new javax.swing.JComboBox<>();
+        btn_volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -149,6 +150,13 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
 
         cbxEstudiante.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        btn_volver.setText("Volver");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,6 +170,8 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnLimpiarForm)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_volver)
+                                .addGap(32, 32, 32)
                                 .addComponent(btnRegistrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnEditar)
@@ -219,12 +229,13 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEstudiante)
                     .addComponent(cbxEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
                     .addComponent(btnEditar)
                     .addComponent(btnRegistrar)
-                    .addComponent(btnLimpiarForm))
+                    .addComponent(btnLimpiarForm)
+                    .addComponent(btn_volver))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -328,6 +339,10 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
         acudienteSeleccion = this.listaAcudientes.get(seleccion);
         this.llenarCampos();
     }//GEN-LAST:event_tblTutoresMouseClicked
+
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+       super.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
 
     /**
      * Consulta los registros de acudientes y los muestra en la tabla.
@@ -458,6 +473,7 @@ public class VistaGestionAcudiente extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiarForm;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JComboBox<String> cbxEstudiante;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTutores;
