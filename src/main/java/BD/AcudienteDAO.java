@@ -58,7 +58,7 @@ public class AcudienteDAO {
             System.out.println(e.toString());
         }
         
-        return false;
+        return resultado;
     }
     
     public static Boolean modificarAcudiente(Acudiente acudiente){

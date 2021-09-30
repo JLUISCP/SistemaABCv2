@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -234,6 +235,11 @@ public class VistaAcudiente extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if(validarCamposVacios()){
+            String estudiante = cbxEstudiante.getSelectedItem().toString();
+                estudiante = estudiante.substring(0, estudiante.indexOf(" "));
+                System.out.println(estudiante);
+                int IDEstudiante = Integer.parseInt(estudiante);
+                
             Acudiente acudiente = new Acudiente();
             acudiente.setNom_madre(txtNombreMadre.getText());
             acudiente.setNom_padre(txtNombrePadre.getText());
@@ -241,8 +247,16 @@ public class VistaAcudiente extends javax.swing.JFrame {
             acudiente.setActivo(true);
             acudiente.setTelefono1(txtTelefono1.getText());
             acudiente.setTelefono2(txtTelefono2.getText());
+            acudiente.setIdestudiante(IDEstudiante);
             
-             
+            Boolean resultado = AcudienteDAO.registrarAcudiente(acudiente);
+            if(resultado){
+                JOptionPane.showMessageDialog(null, "Registro exitoso");
+            }else{
+                JOptionPane.showMessageDialog(null, "Fallo el registro de los tutores");
+            }
+            limpiarCampos();
+            cargarDatos();
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
