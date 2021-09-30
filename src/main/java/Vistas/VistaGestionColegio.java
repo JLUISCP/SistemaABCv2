@@ -216,6 +216,10 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+/**
+ * Este evento sirve para detectar cuando una tupla de la base de datos
+ * se selecciona y se llenan los textfields con sus campos correspondientes
+ */
     private void tbColegiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbColegiosMouseClicked
         int seleccion = tbColegios.rowAtPoint(evt.getPoint());
         colegioSeleccionado.setIdColegio(Integer.parseInt(String.valueOf(tbColegios.getValueAt(seleccion, 0))));
@@ -224,7 +228,11 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         colegioSeleccionado.setActivo(Boolean.parseBoolean(String.valueOf(tbColegios.getValueAt(seleccion, 3))));
         llenarCampos();
     }//GEN-LAST:event_tbColegiosMouseClicked
-
+/**
+ * Este evento se dispara al seleccionar el botón Eliminar
+ * y elimina una fila seleccionada de la tabla de Colegios
+ * Este evento solo puede utilizarse al seleccionar una fila de la tabla.
+ */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         Boolean resultado = ColegioDAO.eliminarColegio(colegioSeleccionado.getIdColegio());
         if(resultado){
@@ -239,7 +247,11 @@ public class VistaGestionColegio extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
-
+/**
+ * Este evento se dispara al seleccionar el botón Registrar
+ * y registra una tupla en tabla de Colegios
+ * en la ventana de JFrame y en la base de datos.
+ */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if(validarCamposVacios()){
             
@@ -259,7 +271,12 @@ public class VistaGestionColegio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Favor de proporcionar toda la informacion");
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
+/**
+ * Este evento se dispara al seleccionar el botón Modificar
+ * y modifica una fila seleccionada de la tabla de Historias Academicas
+ * si se realizaron cambios a sus campos.
+ * Este evento solo puede utilizarse al seleccionar una fila de la tabla.
+ */
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if(validarCamposVacios()){
             Colegio colegio = new Colegio();
@@ -303,7 +320,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         model.setColumnIdentifiers(new Object[]{"idColegio", "TipoColegio", "Ciudad", "Estado actividad"});
         try{
             while(rs.next()){
-                model.addRow(new Object[]{rs.getInt("idcolegio"), rs.getString("privado"), rs.getString("distrital"), rs.getBoolean("activo")});
+                model.addRow(new Object[]{rs.getInt("idcolegio"), rs.getString("tipo"), rs.getString("ciudad"), rs.getBoolean("activo")});
             }
             tbColegios.setModel(model);
         }catch(SQLException e){
