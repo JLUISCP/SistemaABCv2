@@ -66,7 +66,7 @@ public class AcudienteDAO {
         Connection conn = Database.getConexion();
         String consulta = "UPDATE public.\"Acudiente\" SET \"nombreMadre\"=?, "
                 + "\"nombrePadre\"=?, email=?, \"idEstudiante\"=?, activo=?, "
-                + "telefono1=?, telefono2=? WHERE ?;";
+                + "telefono1=?, telefono2=? WHERE \"idAcudiente\" = ?;";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);

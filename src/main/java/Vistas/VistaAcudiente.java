@@ -20,13 +20,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaAcudiente extends javax.swing.JFrame {
     private List<Acudiente> listaAcudientes;
-    
+    private Acudiente acudienteSeleccion;
     /**
      * Creates new form VistaAcudiente
      */
     public VistaAcudiente() {
         initComponents();
         listaAcudientes = new ArrayList<Acudiente>();
+        acudienteSeleccion = null;
         this.cargarDatos();
         this.cargarCmbEstudiantes();
     }
@@ -261,7 +262,28 @@ public class VistaAcudiente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        if(validarCamposVacios()){
+            String estudiante = cbxEstudiante.getSelectedItem().toString();
+                estudiante = estudiante.substring(0, estudiante.indexOf(" "));
+                System.out.println(estudiante);
+                int IDEstudiante = Integer.parseInt(estudiante);
+            acudienteSeleccion.setNom_madre(txtNombreMadre.getText());
+            acudienteSeleccion.setNom_padre(txtNombrePadre.getText());
+            acudienteSeleccion.setDirec_elect(txtEmail.getText());
+            acudienteSeleccion.setActivo(true);
+            acudienteSeleccion.setTelefono1(txtTelefono1.getText());
+            acudienteSeleccion.setTelefono2(txtTelefono2.getText());
+            acudienteSeleccion.setIdestudiante(IDEstudiante);
+            
+            Boolean resultado = AcudienteDAO.modificarAcudiente(acudienteSeleccion);
+            if(resultado){
+                JOptionPane.showMessageDialog(null, "Modificacion exitosa");
+            }else{
+                JOptionPane.showMessageDialog(null, "Fallo la moficacion de Acudiente");
+            }
+            limpiarCampos();
+            cargarDatos();
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -273,8 +295,9 @@ public class VistaAcudiente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarFormActionPerformed
 
     private void tblTutoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTutoresMouseClicked
-        int seleccion = tblTutores.rowAtPoint(evt.getPoint());
-        
+        int seleccion = this.tblTutores.getSelectedRow();
+        acudienteSeleccion = this.listaAcudientes.get(seleccion);
+        this.llenarCampos();
     }//GEN-LAST:event_tblTutoresMouseClicked
 
     private void cargarDatos(){
@@ -316,6 +339,7 @@ public class VistaAcudiente extends javax.swing.JFrame {
         this.btnRegistrar.setEnabled(true);
         this.btnEditar.setEnabled(false);
         this.btnEliminar.setEnabled(false);
+        this.cargarCmbEstudiantes();
     }
     
     private boolean validarCamposVacios(){
@@ -352,11 +376,35 @@ public class VistaAcudiente extends javax.swing.JFrame {
                         rs.getString("primerapellido") + " " +  rs.getString("segundoapellido"));
                 }
             }
+            this.cbxEstudiante.setSelectedIndex(-1);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             System.out.println("Conexión cerrada");
         }
+    }
+    
+    private void llenarCampos(){
+        this.txtEmail.setText(acudienteSeleccion.getDirec_elect());
+        this.txtNombreMadre.setText(acudienteSeleccion.getNom_madre());
+        this.txtNombrePadre.setText(acudienteSeleccion.getNom_padre());
+        this.txtTelefono1.setText(acudienteSeleccion.getTelefono1());
+        this.txtTelefono2.setText(acudienteSeleccion.getTelefono2());
+        
+        for (int i = 0; i < this.cbxEstudiante.getItemCount(); i++){
+            String estudiante = cbxEstudiante.getItemAt(i).toString();
+                estudiante = estudiante.substring(0, estudiante.indexOf(" "));
+                int IDEstudiante = Integer.parseInt(estudiante);
+            if (acudienteSeleccion.getIdestudiante() == IDEstudiante) {
+                this.cbxEstudiante.setSelectedIndex(i);
+                break;
+            }
+        }
+        
+        btnEliminar.setEnabled(true);
+        btnEditar.setEnabled(true);
+        btnLimpiarForm.setEnabled(true);
+        btnRegistrar.setEnabled(false);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
