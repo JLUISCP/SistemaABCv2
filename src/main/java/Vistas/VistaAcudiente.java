@@ -5,6 +5,7 @@
 package Vistas;
 
 import BD.AcudienteDAO;
+import BD.EstudianteDAO;
 import Clases.Acudiente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,6 +27,7 @@ public class VistaAcudiente extends javax.swing.JFrame {
         initComponents();
         listaAcudientes = new ArrayList<Acudiente>();
         this.cargarDatos();
+        this.cargarCmbEstudiantes();
     }
 
     /**
@@ -323,6 +325,24 @@ public class VistaAcudiente extends javax.swing.JFrame {
             camposLLenos = false;
         }
         return camposLLenos;
+    }
+    
+    private void cargarCmbEstudiantes() {
+        cbxEstudiante.removeAllItems();
+        ResultSet rs = EstudianteDAO.consultarEstudiantes();
+        //Rest of your code here
+        try {
+            if(rs != null){
+                while ((rs.next())) {
+                    cbxEstudiante.addItem(rs.getString("idestudiante") + " " + rs.getString("primernombre") + " " + rs.getString("segundonombre") +" " +
+                        rs.getString("primerapellido") + " " +  rs.getString("segundoapellido"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println("Conexión cerrada");
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
