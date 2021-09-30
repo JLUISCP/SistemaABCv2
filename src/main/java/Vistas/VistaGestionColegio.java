@@ -66,7 +66,7 @@ public class VistaGestionColegio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tfNombreColegio = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbColegios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
