@@ -240,7 +240,7 @@ public class VistaAcudiente extends javax.swing.JFrame {
             acudiente.setTelefono1(txtTelefono1.getText());
             acudiente.setTelefono2(txtTelefono2.getText());
             
-            
+             
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
