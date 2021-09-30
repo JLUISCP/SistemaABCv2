@@ -287,7 +287,20 @@ public class VistaAcudiente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        int indice = this.tblTutores.getSelectedRow();
+        if(indice >= 0){
+            Acudiente acudiente = this.listaAcudientes.get(indice);
+            int idAcudiente = acudiente.getIdacudiente();
+            
+            Boolean resultado = AcudienteDAO.eliminarAcudiente(idAcudiente);
+            if(resultado){
+                JOptionPane.showMessageDialog(null, "Eliminación exitosa");
+            }else{
+                JOptionPane.showMessageDialog(null, "Fallo la eliminación de Acudiente");
+            }
+            limpiarCampos();
+            cargarDatos();
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarFormActionPerformed

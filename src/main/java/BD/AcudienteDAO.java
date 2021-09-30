@@ -89,16 +89,16 @@ public class AcudienteDAO {
         return resultado;
     }
     
-    public static Boolean eliminarAcudiente(Acudiente acudiente){
+    public static Boolean eliminarAcudiente(int IdAcudiente){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE public.\"Acudiente\" SET activo=? WHERE ?;";
+        String consulta = "UPDATE public.\"Acudiente\" SET activo=? WHERE \"idAcudiente\" = ?;";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
            
             ps.setBoolean(1, false);
-            ps.setInt(3, acudiente.getIdacudiente());
+            ps.setInt(2, IdAcudiente);
             
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
