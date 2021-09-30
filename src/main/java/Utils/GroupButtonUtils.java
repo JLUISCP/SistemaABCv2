@@ -9,11 +9,9 @@ import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 
-/* Clase que permite obtener el texto
- * del radio button seleccionado dentro
- * de un grupo de radio buttons para el
- * tipo de colegio
- * @author asisr
+/* Clase que permite obtener el texto del radio button seleccionado dentro
+ * de un grupo de radio buttons para el tipo de colegio
+ * @return null
  */
 public class GroupButtonUtils {
     public String getSelectedButtonText(ButtonGroup btnButtonGroup) {

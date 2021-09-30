@@ -23,10 +23,14 @@ import java.sql.Statement;
  * @author asisr
  */
 public class HistoriaAcademicaDAO {
-
+    /**
+     * Se conecta a la base de datos y consulta 
+     * los registros de los historiales académicos que esten activos.
+     * @return ResultSet que contiene los resultados de la busqueda. 
+     */
     public static ResultSet consultarHistoriaAcademica() {
         Connection conn = Database.getConexion();
-        String consulta = "SELECT idhistorial_academico, idestudiante, cole_ant, año, grado, activo FROM \"historial_academico\"";
+        String consulta = "SELECT idhistorial_academico, idestudiante, cole_ant, año, grado, activo FROM \"historial_academico\" WHERE activo = true";
         Statement st;
         ResultSet datos = null;
         try {
@@ -37,7 +41,11 @@ public class HistoriaAcademicaDAO {
         }
         return datos;
     }
-
+    /**
+     * Registra en la base de datos un nuevo historial académico.
+     * @param historiaAcademica que se registrará
+     * @return 
+     */
     public static Boolean registrarHistoriaAcademica(HistoriaAcademica historiaAcademica) {
         Boolean resultado = false;
         Connection conn = Database.getConexion();
@@ -60,7 +68,12 @@ public class HistoriaAcademicaDAO {
         }
         return resultado;
     }
-
+    /**
+     * Modifica en la base de datos el registro de un historial académico.
+     * @param historiaAcademica Registro que se actualizará
+     * @return True si se pudo actualizar, 
+     * False si no fue posible actualizar el registro.
+     */
     public static Boolean modificarHistoriaAcademica(HistoriaAcademica historiaAcademica) {
         Boolean resultado = false;
         Connection conn = Database.getConexion();
@@ -83,11 +96,17 @@ public class HistoriaAcademicaDAO {
         }
         return resultado;
     }
-
+    /**
+     * Se acualiza el registro de un HistoriaAcademica a activo = false.
+     * @param Idhistorial_academico Id del historial academico que se actualizara.
+     * @return True si se pudo actualizar.
+     * False si no fue posible actualizar el registro.
+     */
     public static Boolean eliminarHistoriaAcademica(int idhistorial_academico) {
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "DELETE FROM \"historial_academico\" WHERE idestudiante = " + idhistorial_academico;
+        String consulta = "UPDATE \"historial_academico\" SET activo=? "
+                + "WHERE \"idhistorial_academico\" = ?;";
         Statement st;
         try {
             st = conn.createStatement();
