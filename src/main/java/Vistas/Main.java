@@ -44,11 +44,7 @@ public class Main {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new VistaGestion().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new VistaGestion().setVisible(true);
             }
         });
     }
