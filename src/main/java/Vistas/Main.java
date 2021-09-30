@@ -41,7 +41,7 @@ public class Main {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Muestra la ventana principal */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuPrincipal().setVisible(true);
