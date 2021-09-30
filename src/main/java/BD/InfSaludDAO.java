@@ -48,18 +48,18 @@ public class InfSaludDAO {
     public static Boolean crearInfSalud(InfSalud infSalud){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "INSERT INTO \"salud\" (peso, altura, presionArterial, grupo_sang, indiceMasaCorporal, idestudiante, activo) VALUES(?,?,?,?,?,?,?) ";
+        String consulta = "INSERT INTO \"salud\" (activo, peso, altura, presionalterial, grupo_sang, indiceMasaCorporal, idestudiante) VALUES(?,?,?,?,?,?,?) ";
         System.out.println(consulta);
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
-            ps.setString(1,infSalud.getPeso());
-            ps.setString(2,infSalud.getAltura());
-            ps.setString(3,infSalud.getPresionArterial());
-            ps.setString(4,infSalud.getGrupo_sang());
-            ps.setString(5,infSalud.getIndiceMasaCorporal());
-            ps.setInt(6,infSalud.getIdestudiante());
-            ps.setBoolean(7,infSalud.getActivo());
+            ps.setBoolean(1,infSalud.getActivo());
+            ps.setString(2,infSalud.getPeso());
+            ps.setString(3,infSalud.getAltura());
+            ps.setString(4,infSalud.getPresionArterial());
+            ps.setString(5,infSalud.getGrupo_sang());
+            ps.setString(6,infSalud.getIndiceMasaCorporal());
+            ps.setInt(7,infSalud.getIdestudiante());
             
             int respuesta = ps.executeUpdate();
             if(respuesta > 0){
@@ -74,17 +74,17 @@ public class InfSaludDAO {
         public static Boolean modificarInfSalud(InfSalud infSalud){
         Boolean resultado = false;
         Connection conn = Database.getConexion();
-        String consulta = "UPDATE \"salud\" SET peso = ?, altura = ?, presionArterial = ?, grupo_sang = ?, indiceMasaCorporal = ?, activo = ? WHERE idestudiante = ?";
+        String consulta = "UPDATE \"salud\" SET activo = ?, peso = ?, altura = ?, presionalterial = ?, grupo_sang = ?, indiceMasaCorporal = ? WHERE idestudiante = ?";
         PreparedStatement  ps;
         try{
             ps = conn.prepareStatement(consulta);
-            ps.setString(1,infSalud.getPeso());
-            ps.setString(2,infSalud.getAltura());
-            ps.setString(3,infSalud.getPresionArterial());
-            ps.setString(4,infSalud.getGrupo_sang());
-            ps.setString(5,infSalud.getIndiceMasaCorporal());
-            ps.setInt(6,infSalud.getIdestudiante());
-            ps.setBoolean(7,infSalud.getActivo());
+            ps.setBoolean(1,infSalud.getActivo());
+            ps.setString(2,infSalud.getPeso());
+            ps.setString(3,infSalud.getAltura());
+            ps.setString(4,infSalud.getPresionArterial());
+            ps.setString(5,infSalud.getGrupo_sang());
+            ps.setString(6,infSalud.getIndiceMasaCorporal());
+            ps.setInt(7,infSalud.getIdestudiante());
             int respuesta = ps.executeUpdate();
             
             if(respuesta > 0){

@@ -12,24 +12,24 @@ package Clases;
  */
 public class InfSalud {
     int idseguroMedico;
+    boolean activo;
     String peso;
     String altura;
-    String presionArterial;
+    String presionalterial;
     String grupo_sang;
     String indiceMasaCorporal;
-    boolean activo;
     int idestudiante;
     
     public InfSalud (){}
     
-    public InfSalud(int idseguroMedico, String peso, String altura, String presionArterial, String grupo_sang, String indiceMasaCorporal, boolean activo,int idestudiante) {
+    public InfSalud(int idseguroMedico, boolean activo, String peso, String altura, String presionArterial, String grupo_sang, String indiceMasaCorporal,int idestudiante) {
         this.idseguroMedico = idseguroMedico;
+        this.activo = activo;
         this.peso = peso;
         this.altura = altura;
-        this.presionArterial = presionArterial;
+        this.presionalterial = presionArterial;
         this.grupo_sang = grupo_sang;
         this.indiceMasaCorporal = indiceMasaCorporal;
-        this.activo = activo;
         this.idestudiante = idestudiante;
     }
     
@@ -46,7 +46,7 @@ public class InfSalud {
     }
     
     public String getPresionArterial(){
-        return presionArterial;
+        return presionalterial;
     }
     
     public String getGrupo_sang(){
@@ -78,7 +78,7 @@ public class InfSalud {
     }
     
     public void setPresionArterial(String presionArterial){
-        this.presionArterial = presionArterial;
+        this.presionalterial = presionArterial;
     }
     
     public void setGrupo_sang(String grupo_sang){
